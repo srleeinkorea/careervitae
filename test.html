@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dr.ANSWER 3.0 | Pediatric AI Monitoring</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        margin: 0;
+        font-family: "Inter", sans-serif;
+        background: #ffffff;
+        color: #0f172a;
+        overflow-x: hidden;
+      }
+
+      /* ================= HERO INTRO ================= */
+
+      .hero {
+        position: relative;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      canvas {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+      }
+
+      .hero-content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -46%);
+        text-align: center;
+        opacity: 0;
+        z-index: 2;
+        transition:
+          opacity 1.2s ease,
+          transform 1.2s ease;
+      }
+
+      .hero-content.show {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+      }
+
+      .hero-content h1 {
+        font-size: 64px;
+        font-weight: 900;
+        margin: 0 0 20px 0;
+        letter-spacing: -0.03em;
+      }
+
+      .hero-content p {
+        font-size: 18px;
+        color: #475569;
+        line-height: 1.6;
+      }
+
+      /* ================= SECTION ================= */
+
+      .section {
+        padding: 120px 24px;
+        max-width: 1100px;
+        margin: auto;
+      }
+
+      .section h2 {
+        font-size: 28px;
+        font-weight: 800;
+        margin-bottom: 40px;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px;
+      }
+
+      .card {
+        padding: 30px;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        background: #ffffff;
+        transition: 0.2s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+      }
+
+      .metric {
+        font-size: 36px;
+        font-weight: 900;
+        color: #2563eb;
+      }
+
+      .small {
+        font-size: 14px;
+        color: #64748b;
+      }
+
+      .footer {
+        padding: 80px 24px;
+        text-align: center;
+        font-size: 14px;
+        color: #64748b;
+        border-top: 1px solid #e5e7eb;
+      }
+
+      /* Responsive */
+      @media (max-width: 900px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+        .hero-content h1 {
+          font-size: 42px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ================= HERO ================= -->
+
+    <section class="hero">
+      <canvas id="heroCanvas"></canvas>
+
+      <div class="hero-content" id="heroContent">
+        <h1>Dr.ANSWER 3.0</h1>
+      </div>
+    </section>
+
+    <!-- ================= KEY METRICS ================= -->
+
+    <!-- ================= THREE JS ================= -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+      const heroContent = document.getElementById("heroContent");
+      const canvasEl = document.getElementById("heroCanvas");
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(60, 1, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer({
+        canvas: canvasEl,
+        alpha: true,
+        antialias: true,
+      });
+      camera.position.z = 60;
+
+      let geo;
+      let mat;
+      let particles;
+      let pts = [];
+      let count = 0;
+      let animationStart = 0;
+
+      function onResize() {
+        const w = window.innerWidth;
+        const h = window.innerHeight;
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        renderer.setPixelRatio(dpr);
+        renderer.setSize(w, h);
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+      }
+
+      function textToPoints(text) {
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = 1600;
+        canvas.height = 400;
+
+        ctx.fillStyle = "#111827";
+        ctx.font = "900 220px Inter";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(text, canvas.width / 2, canvas.height / 2);
+
+        const data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+        const points = [];
+
+        for (let y = 0; y < canvas.height; y += 5) {
+          for (let x = 0; x < canvas.width; x += 5) {
+            const i = (y * canvas.width + x) * 4;
+            if (data[i + 3] > 150) {
+              points.push({
+                x: (x - canvas.width / 2) / 120,
+                y: (canvas.height / 2 - y) / 120,
+                z: (Math.random() - 0.5) * 4,
+              });
+            }
+          }
+        }
+        return points;
+      }
+
+      function buildParticles() {
+        pts = textToPoints("aitrics");
+        count = pts.length;
+
+        geo = new THREE.BufferGeometry();
+        const pos = new Float32Array(count * 3);
+
+        for (let i = 0; i < count; i++) {
+          pos[i * 3] = (Math.random() - 0.5) * 120;
+          pos[i * 3 + 1] = (Math.random() - 0.5) * 120;
+          pos[i * 3 + 2] = (Math.random() - 0.5) * 120;
+        }
+
+        geo.setAttribute("position", new THREE.BufferAttribute(pos, 3));
+
+        mat = new THREE.PointsMaterial({
+          size: 0.075,
+          color: 0x0f172a,
+          transparent: true,
+          opacity: 0.85,
+          depthWrite: false,
+        });
+
+        particles = new THREE.Points(geo, mat);
+        scene.add(particles);
+      }
+
+      function animate(now) {
+        requestAnimationFrame(animate);
+        if (!geo || !pts.length) return;
+
+        if (!animationStart) animationStart = now;
+        const elapsed = now - animationStart;
+        const arr = geo.attributes.position.array;
+
+        const lerp = elapsed < 3000 ? 0.032 : 0.018;
+
+        for (let i = 0; i < count; i++) {
+          arr[i * 3] += (pts[i].x - arr[i * 3]) * lerp;
+          arr[i * 3 + 1] += (pts[i].y - arr[i * 3 + 1]) * lerp;
+          arr[i * 3 + 2] += (pts[i].z - arr[i * 3 + 2]) * lerp;
+        }
+
+        if (elapsed > 2200) {
+          heroContent.classList.add("show");
+        }
+
+        if (elapsed > 3200) {
+          mat.opacity = Math.max(0.2, mat.opacity - 0.0035);
+        }
+
+        geo.attributes.position.needsUpdate = true;
+        renderer.render(scene, camera);
+      }
+
+      async function init() {
+        if (document.fonts && document.fonts.ready) {
+          await document.fonts.ready;
+        }
+
+        onResize();
+        buildParticles();
+        requestAnimationFrame(animate);
+      }
+
+      window.addEventListener("resize", onResize);
+      init();
+    </script>
+  </body>
+</html>
