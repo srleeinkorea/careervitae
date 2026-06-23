@@ -5,169 +5,1042 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>이사라 | Healthcare AI PM</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap"
+      rel="stylesheet" />
     <style>
-      *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-      :root{
-        --bg:#f4f7fa;--bg2:#eef2f7;--white:#ffffff;--ink:#0f1419;--ink2:#364558;
-        --muted:#7a8696;--accent:#3b82f6;--accent-light:#eff6ff;--line:#d4dce6;
-        --card:#ffffff;--tag-bg:#e8f0f8;
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
       }
-      body{background:var(--bg);color:var(--ink2);font-family:"DM Sans",sans-serif;font-size:14px;line-height:1.75;-webkit-font-smoothing:antialiased;min-height:100vh;}
-      .wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
-      header{background:var(--white);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:100;backdrop-filter:blur(10px);}
-      .header-inner{display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:56px;max-width:1180px;margin:0 auto;}
-      .logo{font-family:"DM Serif Display",serif;font-size:18px;color:var(--ink);letter-spacing:0.01em;}
-      .logo span{color:var(--accent);font-style:italic;}
-      nav{display:flex;gap:2px;}
-      .nav-btn{background:none;border:none;font-family:"DM Sans",sans-serif;font-size:13px;font-weight:500;color:var(--muted);padding:6px 14px;border-radius:6px;cursor:pointer;transition:all 0.18s;letter-spacing:0.02em;}
-      .nav-btn:hover{color:var(--ink);}
-      .nav-btn.active{color:var(--accent);background:var(--accent-light);}
-      .hero{background:var(--white);border-bottom:1px solid var(--line);animation:fadeUp 0.6s ease both;overflow:hidden;position:relative;}
-      .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 100% 0%,rgba(26,86,219,0.04) 0%,transparent 70%),radial-gradient(ellipse 40% 60% at 0% 100%,rgba(26,86,219,0.03) 0%,transparent 60%);pointer-events:none;}
-      .hero-top{max-width:1180px;margin:0 auto;padding:56px 24px 44px;display:grid;grid-template-columns:1fr 340px;gap:48px;align-items:start;position:relative;}
-      .hero-eyebrow{font-size:11px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
-      .hero-eyebrow::before{content:"";width:20px;height:1.5px;background:var(--accent);border-radius:2px;}
-      .hero-name{font-family:"DM Serif Display",serif;font-size:clamp(48px,6.5vw,76px);color:var(--ink);line-height:0.95;margin-bottom:4px;letter-spacing:-0.02em;}
-      .hero-name-en{font-family:"DM Serif Display",serif;font-size:clamp(18px,2.5vw,26px);font-style:italic;color:var(--muted);font-weight:400;margin-bottom:24px;}
-      .hero-desc{font-size:14.5px;color:var(--ink2);font-weight:300;line-height:1.75;}
-      .hero-journey{margin-top:28px;display:flex;flex-wrap:wrap;gap:7px;align-items:center;}
-      .journey-label{font-size:10px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-right:4px;}
-      .journey-pill{display:inline-flex;align-items:center;gap:5px;padding:5px 11px;border-radius:20px;font-size:11.5px;font-weight:500;border:1px solid var(--line);background:var(--bg);color:var(--ink2);white-space:nowrap;}
-      .journey-pill.current{background:var(--accent-light);border-color:rgba(26,86,219,0.2);color:var(--accent);}
-      .journey-arrow{font-size:10px;color:var(--line);}
-      .hero-right{display:flex;flex-direction:column;gap:12px;padding-top:6px;}
-      .hero-stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden;}
-      .m-cell{background:var(--white);padding:18px 12px;text-align:center;transition:background 0.15s;}
-      .m-cell:hover{background:var(--bg);}
-      .m-num{font-family:"DM Serif Display",serif;font-size:36px;color:var(--ink);line-height:1;display:block;}
-      .m-label{font-size:9.5px;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-top:4px;line-height:1.4;}
-      .hero-contact{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:16px 18px;display:flex;flex-direction:column;gap:8px;}
-      .contact-item{display:flex;align-items:center;gap:10px;font-size:12.5px;color:var(--ink2);}
-      .contact-icon{width:28px;height:28px;border-radius:7px;background:var(--white);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;}
-      .contact-item a{color:var(--accent);text-decoration:none;font-weight:500;}
-      .hero-domains-right{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:16px 18px;}
-      .domain-right-label{font-size:10px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
-      .domain-right-tags{display:flex;flex-wrap:wrap;gap:6px;}
-      .domain-tag{display:inline-block;padding:4px 10px;border-radius:20px;font-size:11px;background:var(--tag-bg);color:var(--ink2);}
-      .panel{display:none;}
-      .panel.active{display:block;animation:fadeUp 0.4s ease both;}
-      @keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
-      .about-layout{padding:48px 24px;max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1fr 320px;gap:48px;}
-      .section-label{font-size:10px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:20px;display:flex;align-items:center;gap:10px;}
-      .section-label::after{content:"";flex:1;height:1px;background:var(--line);}
-      .summary-text{font-size:15px;line-height:1.85;color:var(--ink2);font-weight:300;margin-bottom:48px;}
-      .summary-text em{font-style:normal;color:var(--ink);font-weight:500;}
-      .career-cards{display:flex;flex-direction:column;gap:10px;}
-      .co-card{background:var(--white);border:1px solid var(--line);border-radius:12px;overflow:hidden;transition:box-shadow 0.2s;}
-      .co-card:hover{box-shadow:0 2px 12px rgba(0,0,0,0.06);}
-      .co-card-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;gap:12px;}
-      .co-card-left{display:flex;align-items:center;gap:14px;}
-      .co-badge{width:38px;height:38px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;letter-spacing:0.03em;}
-      .co-name{font-size:14px;font-weight:600;color:var(--ink);line-height:1.2;}
-      .co-period{font-size:11px;color:var(--muted);margin-top:2px;}
-      .co-card-right{display:flex;align-items:center;gap:12px;flex-shrink:0;}
-      .co-role-chip{font-size:11.5px;font-weight:500;color:var(--accent);background:var(--accent-light);padding:4px 10px;border-radius:20px;}
-      .co-card-body{padding:0 20px 20px;}
-      .co-role-title{font-size:13.5px;font-weight:600;color:var(--ink);margin-bottom:4px;margin-top:2px;}
-      .co-product-tag{font-size:11.5px;color:var(--muted);font-style:italic;margin-bottom:12px;}
-      .role-block-header{display:flex;align-items:center;gap:10px;margin-bottom:6px;}
-      .role-label{font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);background:var(--accent-light);padding:2px 8px;border-radius:4px;}
-      .role-period-small{font-size:11px;color:var(--muted);}
-      .bullets{list-style:none;display:flex;flex-direction:column;gap:5px;}
-      .bullets li{display:flex;gap:8px;font-size:12.5px;color:var(--ink2);font-weight:300;line-height:1.65;}
-      .bullets li::before{content:"→";color:var(--accent);font-size:11px;flex-shrink:0;margin-top:3px;line-height:1.65;}
-      .lawsuit-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;}
-      .lawsuit-col{background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:14px;}
-      .lawsuit-col-title{font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;font-weight:600;}
-      .lawsuit-col ul{list-style:none;}
-      .lawsuit-col ul li{font-size:11.5px;color:var(--ink2);font-weight:300;line-height:1.65;padding:2px 0 2px 12px;position:relative;}
-      .lawsuit-col ul li::before{content:"–";position:absolute;left:0;color:var(--muted);}
-      .sidebar{display:flex;flex-direction:column;gap:28px;}
-      .side-card{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:22px;}
-      .side-card-title{font-size:10px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
-      .tags{display:flex;flex-wrap:wrap;gap:6px;}
-      .tag{display:inline-block;padding:4px 10px;border-radius:20px;font-size:11px;background:var(--tag-bg);color:var(--ink2);font-weight:400;transition:all 0.15s;}
-      .tag:hover{background:var(--accent-light);color:var(--accent);}
-      .cert-list{list-style:none;}
-      .cert-list li{font-size:12.5px;color:var(--ink2);padding:5px 0;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:8px;}
-      .cert-list li:last-child{border-bottom:none;}
-      .cert-list li::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--accent);flex-shrink:0;opacity:0.6;}
-      .expertise-item{margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--line);}
-      .expertise-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
-      .expertise-title{font-size:12.5px;font-weight:600;color:var(--ink);margin-bottom:5px;}
-      .expertise-desc{font-size:11.5px;color:var(--muted);font-weight:300;line-height:1.6;}
+      :root {
+        --bg: #f4f7fa;
+        --bg2: #eef2f7;
+        --white: #ffffff;
+        --ink: #0f1419;
+        --ink2: #364558;
+        --muted: #7a8696;
+        --accent: #3b82f6;
+        --accent-light: #eff6ff;
+        --line: #d4dce6;
+        --card: #ffffff;
+        --tag-bg: #e8f0f8;
+      }
+      body {
+        background: var(--bg);
+        color: var(--ink2);
+        font-family: "DM Sans", sans-serif;
+        font-size: 14px;
+        line-height: 1.75;
+        -webkit-font-smoothing: antialiased;
+        min-height: 100vh;
+      }
+      .wrap {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+      header {
+        background: var(--white);
+        border-bottom: 1px solid var(--line);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        backdrop-filter: blur(10px);
+      }
+      .header-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 24px;
+        height: 56px;
+        max-width: 1180px;
+        margin: 0 auto;
+      }
+      .logo {
+        font-family: "DM Serif Display", serif;
+        font-size: 18px;
+        color: var(--ink);
+        letter-spacing: 0.01em;
+      }
+      .logo span {
+        color: var(--accent);
+        font-style: italic;
+      }
+      nav {
+        display: flex;
+        gap: 2px;
+      }
+      .nav-btn {
+        background: none;
+        border: none;
+        font-family: "DM Sans", sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--muted);
+        padding: 6px 14px;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.18s;
+        letter-spacing: 0.02em;
+      }
+      .nav-btn:hover {
+        color: var(--ink);
+      }
+      .nav-btn.active {
+        color: var(--accent);
+        background: var(--accent-light);
+      }
+      .hero {
+        background: var(--white);
+        border-bottom: 1px solid var(--line);
+        animation: fadeUp 0.6s ease both;
+        overflow: hidden;
+        position: relative;
+      }
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(
+            ellipse 60% 80% at 100% 0%,
+            rgba(26, 86, 219, 0.04) 0%,
+            transparent 70%
+          ),
+          radial-gradient(
+            ellipse 40% 60% at 0% 100%,
+            rgba(26, 86, 219, 0.03) 0%,
+            transparent 60%
+          );
+        pointer-events: none;
+      }
+      .hero-top {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 56px 24px 44px;
+        display: grid;
+        grid-template-columns: 1fr 340px;
+        gap: 48px;
+        align-items: start;
+        position: relative;
+      }
+      .hero-eyebrow {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .hero-eyebrow::before {
+        content: "";
+        width: 20px;
+        height: 1.5px;
+        background: var(--accent);
+        border-radius: 2px;
+      }
+      .hero-name {
+        font-family: "DM Serif Display", serif;
+        font-size: clamp(48px, 6.5vw, 76px);
+        color: var(--ink);
+        line-height: 0.95;
+        margin-bottom: 4px;
+        letter-spacing: -0.02em;
+      }
+      .hero-name-en {
+        font-family: "DM Serif Display", serif;
+        font-size: clamp(18px, 2.5vw, 26px);
+        font-style: italic;
+        color: var(--muted);
+        font-weight: 400;
+        margin-bottom: 24px;
+      }
+      .hero-desc {
+        font-size: 14.5px;
+        color: var(--ink2);
+        font-weight: 300;
+        line-height: 1.75;
+      }
+      .hero-journey {
+        margin-top: 28px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+        align-items: center;
+      }
+      .journey-label {
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-right: 4px;
+      }
+      .journey-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 5px 11px;
+        border-radius: 20px;
+        font-size: 11.5px;
+        font-weight: 500;
+        border: 1px solid var(--line);
+        background: var(--bg);
+        color: var(--ink2);
+        white-space: nowrap;
+      }
+      .journey-pill.current {
+        background: var(--accent-light);
+        border-color: rgba(26, 86, 219, 0.2);
+        color: var(--accent);
+      }
+      .journey-arrow {
+        font-size: 10px;
+        color: var(--line);
+      }
+      .hero-right {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding-top: 6px;
+      }
+      .hero-stat-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1px;
+        background: var(--line);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        overflow: hidden;
+      }
+      .m-cell {
+        background: var(--white);
+        padding: 18px 12px;
+        text-align: center;
+        transition: background 0.15s;
+      }
+      .m-cell:hover {
+        background: var(--bg);
+      }
+      .m-num {
+        font-family: "DM Serif Display", serif;
+        font-size: 36px;
+        color: var(--ink);
+        line-height: 1;
+        display: block;
+      }
+      .m-label {
+        font-size: 9.5px;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin-top: 4px;
+        line-height: 1.4;
+      }
+      .hero-contact {
+        background: var(--bg);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 16px 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .contact-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 12.5px;
+        color: var(--ink2);
+      }
+      .contact-icon {
+        width: 28px;
+        height: 28px;
+        border-radius: 7px;
+        background: var(--white);
+        border: 1px solid var(--line);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        flex-shrink: 0;
+      }
+      .contact-item a {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 500;
+      }
+      .hero-domains-right {
+        background: var(--bg);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 16px 18px;
+      }
+      .domain-right-label {
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 10px;
+      }
+      .domain-right-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .domain-tag {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 11px;
+        background: var(--tag-bg);
+        color: var(--ink2);
+      }
+      .panel {
+        display: none;
+      }
+      .panel.active {
+        display: block;
+        animation: fadeUp 0.4s ease both;
+      }
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(16px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .about-layout {
+        padding: 48px 24px;
+        max-width: 1180px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 320px;
+        gap: 48px;
+      }
+      .section-label {
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .section-label::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--line);
+      }
+      .summary-text {
+        font-size: 15px;
+        line-height: 1.85;
+        color: var(--ink2);
+        font-weight: 300;
+        margin-bottom: 48px;
+      }
+      .summary-text em {
+        font-style: normal;
+        color: var(--ink);
+        font-weight: 500;
+      }
+      .career-cards {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .co-card {
+        background: var(--white);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        overflow: hidden;
+        transition: box-shadow 0.2s;
+      }
+      .co-card:hover {
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+      }
+      .co-card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px 20px;
+        gap: 12px;
+      }
+      .co-card-left {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+      .co-badge {
+        width: 38px;
+        height: 38px;
+        border-radius: 9px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+        font-weight: 700;
+        flex-shrink: 0;
+        letter-spacing: 0.03em;
+      }
+      .co-name {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--ink);
+        line-height: 1.2;
+      }
+      .co-period {
+        font-size: 11px;
+        color: var(--muted);
+        margin-top: 2px;
+      }
+      .co-card-right {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-shrink: 0;
+      }
+      .co-role-chip {
+        font-size: 11.5px;
+        font-weight: 500;
+        color: var(--accent);
+        background: var(--accent-light);
+        padding: 4px 10px;
+        border-radius: 20px;
+      }
+      .co-card-body {
+        padding: 0 20px 20px;
+      }
+      .co-role-title {
+        font-size: 13.5px;
+        font-weight: 600;
+        color: var(--ink);
+        margin-bottom: 4px;
+        margin-top: 2px;
+      }
+      .co-product-tag {
+        font-size: 11.5px;
+        color: var(--muted);
+        font-style: italic;
+        margin-bottom: 12px;
+      }
+      .role-block-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 6px;
+      }
+      .role-label {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--accent);
+        background: var(--accent-light);
+        padding: 2px 8px;
+        border-radius: 4px;
+      }
+      .role-period-small {
+        font-size: 11px;
+        color: var(--muted);
+      }
+      .bullets {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+      .bullets li {
+        display: flex;
+        gap: 8px;
+        font-size: 12.5px;
+        color: var(--ink2);
+        font-weight: 300;
+        line-height: 1.65;
+      }
+      .bullets li::before {
+        content: "→";
+        color: var(--accent);
+        font-size: 11px;
+        flex-shrink: 0;
+        margin-top: 3px;
+        line-height: 1.65;
+      }
+      .lawsuit-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-top: 8px;
+      }
+      .lawsuit-col {
+        background: var(--bg2);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 14px;
+      }
+      .lawsuit-col-title {
+        font-size: 10px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 8px;
+        font-weight: 600;
+      }
+      .lawsuit-col ul {
+        list-style: none;
+      }
+      .lawsuit-col ul li {
+        font-size: 11.5px;
+        color: var(--ink2);
+        font-weight: 300;
+        line-height: 1.65;
+        padding: 2px 0 2px 12px;
+        position: relative;
+      }
+      .lawsuit-col ul li::before {
+        content: "–";
+        position: absolute;
+        left: 0;
+        color: var(--muted);
+      }
+      .sidebar {
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+      }
+      .side-card {
+        background: var(--white);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 22px;
+      }
+      .side-card-title {
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 14px;
+      }
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .tag {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 11px;
+        background: var(--tag-bg);
+        color: var(--ink2);
+        font-weight: 400;
+        transition: all 0.15s;
+      }
+      .tag:hover {
+        background: var(--accent-light);
+        color: var(--accent);
+      }
+      .cert-list {
+        list-style: none;
+      }
+      .cert-list li {
+        font-size: 12.5px;
+        color: var(--ink2);
+        padding: 5px 0;
+        border-bottom: 1px solid var(--line);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .cert-list li:last-child {
+        border-bottom: none;
+      }
+      .cert-list li::before {
+        content: "";
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: var(--accent);
+        flex-shrink: 0;
+        opacity: 0.6;
+      }
+      .expertise-item {
+        margin-bottom: 16px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid var(--line);
+      }
+      .expertise-item:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+      }
+      .expertise-title {
+        font-size: 12.5px;
+        font-weight: 600;
+        color: var(--ink);
+        margin-bottom: 5px;
+      }
+      .expertise-desc {
+        font-size: 11.5px;
+        color: var(--muted);
+        font-weight: 300;
+        line-height: 1.6;
+      }
 
       /* PROJECTS */
-      .projects-subheader{background:var(--white);border-bottom:1px solid var(--line);padding:20px 24px;}
-      .projects-subheader-inner{max-width:1180px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px;}
-      .projects-sh-title{font-family:"DM Serif Display",serif;font-size:22px;color:var(--ink);line-height:1.1;}
-      .projects-sh-sub{font-size:11.5px;color:var(--muted);margin-top:2px;}
-      .projects-sh-contact{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);}
-      .sh-dot{color:var(--line);}
-      .projects-wrap{padding:48px 24px;max-width:1180px;margin:0 auto;}
-      .kp-grid{display:flex;flex-direction:column;gap:16px;margin-bottom:44px;}
-      .kp-card{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:28px 36px;transition:all 0.22s;position:relative;overflow:hidden;}
-      .kp-card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),#60a5fa);opacity:0;transition:opacity 0.2s;}
-      .kp-card:hover{border-color:rgba(26,86,219,0.2);box-shadow:0 4px 20px rgba(26,86,219,0.07);transform:translateY(-2px);}
-      .kp-card:hover::before{opacity:1;}
-      .kp-header-row{display:flex;align-items:flex-start;gap:24px;margin-bottom:20px;}
-      .kp-num{font-family:"DM Serif Display",serif;font-size:52px;color:var(--line);line-height:1;flex-shrink:0;transition:color 0.2s;margin-top:-4px;}
-      .kp-card:hover .kp-num{color:#c7d7f4;}
-      .kp-header-meta{flex:1;}
-      .kp-badge-row{margin-bottom:8px;}
-      .kp-company-tag{display:inline-block;font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);background:var(--accent-light);padding:3px 10px;border-radius:4px;}
-      .kp-title{font-size:15px;font-weight:700;color:var(--ink);line-height:1.4;margin-bottom:6px;}
-      .kp-goal-label{font-size:9.5px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:3px;}
-      .kp-goal{font-size:12.5px;color:var(--muted);font-weight:300;line-height:1.6;}
-      .kp-divider{height:1px;background:var(--line);margin:20px 0;}
-      .kp-two-col{display:grid;grid-template-columns:1fr 1fr;gap:32px;}
-      .kp-sub-label{font-size:9.5px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;}
-      .kp-body{font-size:12.5px;color:var(--ink2);font-weight:300;line-height:1.75;}
-      .kp-body ul{list-style:none;display:flex;flex-direction:column;gap:7px;}
-      .kp-body ul li{display:flex;gap:9px;}
-      .kp-body ul li::before{content:"→";color:var(--accent);flex-shrink:0;font-size:11px;margin-top:3px;}
-      .kp-outcome-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;padding-top:16px;border-top:1px dashed var(--line);}
-      .kp-outcome-chip{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:20px;font-size:11.5px;font-weight:500;background:var(--accent-light);color:#1a56db;border:1px solid rgba(26,86,219,0.15);line-height:1.3;}
-      .kp-outcome-chip .chip-icon{font-size:12px;}
-      .kp-outcome-label{font-size:9px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;display:flex;align-items:center;gap:6px;}
-      .kp-outcome-label::before{content:"★";font-size:9px;}
-      .pa-section-label{font-size:10px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:20px;display:flex;align-items:center;gap:10px;}
-      .pa-section-label::after{content:"";flex:1;height:1px;background:var(--line);}
-      .pa-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
-      .pa-card{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:22px 24px;transition:all 0.2s;}
-      .pa-card:hover{border-color:rgba(26,86,219,0.2);box-shadow:0 3px 14px rgba(26,86,219,0.06);transform:translateY(-1px);}
-      .pa-icon{font-size:22px;margin-bottom:10px;}
-      .pa-title{font-size:13px;font-weight:700;color:var(--ink);line-height:1.35;margin-bottom:6px;}
-      .pa-obj-label{font-size:9.5px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);margin-bottom:4px;}
-      .pa-obj{font-size:11.5px;color:var(--muted);font-weight:300;line-height:1.55;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--line);}
-      .pa-body{font-size:11.5px;color:var(--ink2);font-weight:300;line-height:1.65;}
-      .pa-body ul{list-style:none;display:flex;flex-direction:column;gap:5px;}
-      .pa-body ul li{display:flex;gap:7px;}
-      .pa-body ul li::before{content:"→";color:var(--accent);font-size:10px;flex-shrink:0;margin-top:3px;}
-      footer{background:var(--white);border-top:1px solid var(--line);padding:18px 24px;margin-top:60px;}
-      .footer-inner{max-width:1180px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;}
-      .footer-inner span{font-size:11.5px;color:var(--muted);}
-      #intro-overlay{position:fixed;inset:0;background:#ffffff;z-index:9999;display:flex;align-items:center;justify-content:center;overflow:hidden;transition:opacity 0.8s ease,visibility 0.8s ease;}
-      #intro-overlay.fade-out{opacity:0;visibility:hidden;pointer-events:none;}
-      #intro-overlay canvas{position:absolute;top:0;left:0;width:100%;height:100%;}
-      #intro-overlay .overlay-vignette{position:absolute;inset:0;background:radial-gradient(circle at center,transparent 55%,rgba(0,0,0,0.07) 100%);pointer-events:none;z-index:1;}
-      #intro-subtitle{position:absolute;top:60%;left:50%;transform:translate(-50%,-50%);font-family:"DM Serif Display",serif;font-weight:300;font-size:clamp(13px,2vw,20px);color:#64748b;opacity:0;transition:opacity 1.8s ease;letter-spacing:0.06em;white-space:nowrap;z-index:2;font-style:italic;}
-      #intro-title{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:"DM Serif Display",serif;font-size:clamp(36px,7vw,80px);font-weight:400;font-style:italic;text-align:center;color:#111;opacity:0;transition:opacity 1.8s ease;letter-spacing:-0.01em;z-index:2;}
-      #skip-btn{position:absolute;bottom:32px;right:36px;font-family:"DM Sans",sans-serif;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#aaa;cursor:pointer;z-index:3;background:none;border:none;padding:6px 0;transition:color 0.2s;}
-      #skip-btn:hover{color:#555;}
-      body.intro-active{overflow:hidden;}
-      @media(max-width:900px){
-        .about-layout{grid-template-columns:1fr;gap:32px;}
-        .hero-top{grid-template-columns:1fr;}
-        .kp-grid{grid-template-columns:1fr;}
-        .kp-card-full{grid-column:1;}
-        .kp-two-col{grid-template-columns:1fr;}
-        .pa-grid{grid-template-columns:1fr 1fr;}
-        .lawsuit-grid{grid-template-columns:1fr;}
-        .projects-subheader-inner{flex-direction:column;align-items:flex-start;gap:6px;}
+      .projects-subheader {
+        background: var(--white);
+        border-bottom: 1px solid var(--line);
+        padding: 20px 24px;
       }
-      @media(max-width:560px){.hero-name{font-size:38px;}.pa-grid{grid-template-columns:1fr;}}
+      .projects-subheader-inner {
+        max-width: 1180px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+      .projects-sh-title {
+        font-family: "DM Serif Display", serif;
+        font-size: 22px;
+        color: var(--ink);
+        line-height: 1.1;
+      }
+      .projects-sh-sub {
+        font-size: 11.5px;
+        color: var(--muted);
+        margin-top: 2px;
+      }
+      .projects-sh-contact {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .sh-dot {
+        color: var(--line);
+      }
+      .projects-wrap {
+        padding: 48px 24px;
+        max-width: 1180px;
+        margin: 0 auto;
+      }
+      .kp-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        margin-bottom: 44px;
+      }
+      .kp-card {
+        background: var(--white);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 28px 36px;
+        transition: all 0.22s;
+        position: relative;
+        overflow: hidden;
+      }
+      .kp-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, var(--accent), #60a5fa);
+        opacity: 0;
+        transition: opacity 0.2s;
+      }
+      .kp-card:hover {
+        border-color: rgba(26, 86, 219, 0.2);
+        box-shadow: 0 4px 20px rgba(26, 86, 219, 0.07);
+        transform: translateY(-2px);
+      }
+      .kp-card:hover::before {
+        opacity: 1;
+      }
+      .kp-header-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 24px;
+        margin-bottom: 20px;
+      }
+      .kp-num {
+        font-family: "DM Serif Display", serif;
+        font-size: 52px;
+        color: var(--line);
+        line-height: 1;
+        flex-shrink: 0;
+        transition: color 0.2s;
+        margin-top: -4px;
+      }
+      .kp-card:hover .kp-num {
+        color: #c7d7f4;
+      }
+      .kp-header-meta {
+        flex: 1;
+      }
+      .kp-badge-row {
+        margin-bottom: 8px;
+      }
+      .kp-company-tag {
+        display: inline-block;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--accent);
+        background: var(--accent-light);
+        padding: 3px 10px;
+        border-radius: 4px;
+      }
+      .kp-title {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--ink);
+        line-height: 1.4;
+        margin-bottom: 6px;
+      }
+      .kp-goal-label {
+        font-size: 9.5px;
+        font-weight: 600;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 3px;
+      }
+      .kp-goal {
+        font-size: 12.5px;
+        color: var(--muted);
+        font-weight: 300;
+        line-height: 1.6;
+      }
+      .kp-divider {
+        height: 1px;
+        background: var(--line);
+        margin: 20px 0;
+      }
+      .kp-two-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+      }
+      .kp-sub-label {
+        font-size: 9.5px;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 10px;
+      }
+      .kp-body {
+        font-size: 12.5px;
+        color: var(--ink2);
+        font-weight: 300;
+        line-height: 1.75;
+      }
+      .kp-body ul {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+      }
+      .kp-body ul li {
+        display: flex;
+        gap: 9px;
+      }
+      .kp-body ul li::before {
+        content: "→";
+        color: var(--accent);
+        flex-shrink: 0;
+        font-size: 11px;
+        margin-top: 3px;
+      }
+      .kp-outcome-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 18px;
+        padding-top: 16px;
+        border-top: 1px dashed var(--line);
+      }
+      .kp-outcome-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 11.5px;
+        font-weight: 500;
+        background: var(--accent-light);
+        color: #1a56db;
+        border: 1px solid rgba(26, 86, 219, 0.15);
+        line-height: 1.3;
+      }
+      .kp-outcome-chip .chip-icon {
+        font-size: 12px;
+      }
+      .kp-outcome-label {
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .kp-outcome-label::before {
+        content: "★";
+        font-size: 9px;
+      }
+      .pa-section-label {
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .pa-section-label::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--line);
+      }
+      .pa-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+      }
+      .pa-card {
+        background: var(--white);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 22px 24px;
+        transition: all 0.2s;
+      }
+      .pa-card:hover {
+        border-color: rgba(26, 86, 219, 0.2);
+        box-shadow: 0 3px 14px rgba(26, 86, 219, 0.06);
+        transform: translateY(-1px);
+      }
+      .pa-icon {
+        font-size: 22px;
+        margin-bottom: 10px;
+      }
+      .pa-title {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--ink);
+        line-height: 1.35;
+        margin-bottom: 6px;
+      }
+      .pa-obj-label {
+        font-size: 9.5px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 4px;
+      }
+      .pa-obj {
+        font-size: 11.5px;
+        color: var(--muted);
+        font-weight: 300;
+        line-height: 1.55;
+        margin-bottom: 12px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid var(--line);
+      }
+      .pa-body {
+        font-size: 11.5px;
+        color: var(--ink2);
+        font-weight: 300;
+        line-height: 1.65;
+      }
+      .pa-body ul {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+      .pa-body ul li {
+        display: flex;
+        gap: 7px;
+      }
+      .pa-body ul li::before {
+        content: "→";
+        color: var(--accent);
+        font-size: 10px;
+        flex-shrink: 0;
+        margin-top: 3px;
+      }
+      footer {
+        background: var(--white);
+        border-top: 1px solid var(--line);
+        padding: 18px 24px;
+        margin-top: 60px;
+      }
+      .footer-inner {
+        max-width: 1180px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .footer-inner span {
+        font-size: 11.5px;
+        color: var(--muted);
+      }
+      #intro-overlay {
+        position: fixed;
+        inset: 0;
+        background: #ffffff;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        transition:
+          opacity 0.8s ease,
+          visibility 0.8s ease;
+      }
+      #intro-overlay.fade-out {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+      #intro-overlay canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+      #intro-overlay .overlay-vignette {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          circle at center,
+          transparent 55%,
+          rgba(0, 0, 0, 0.07) 100%
+        );
+        pointer-events: none;
+        z-index: 1;
+      }
+      #intro-subtitle {
+        position: absolute;
+        top: 60%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-family: "DM Serif Display", serif;
+        font-weight: 300;
+        font-size: clamp(13px, 2vw, 20px);
+        color: #64748b;
+        opacity: 0;
+        transition: opacity 1.8s ease;
+        letter-spacing: 0.06em;
+        white-space: nowrap;
+        z-index: 2;
+        font-style: italic;
+      }
+      #intro-title {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-family: "DM Serif Display", serif;
+        font-size: clamp(36px, 7vw, 80px);
+        font-weight: 400;
+        font-style: italic;
+        text-align: center;
+        color: #111;
+        opacity: 0;
+        transition: opacity 1.8s ease;
+        letter-spacing: -0.01em;
+        z-index: 2;
+      }
+      #skip-btn {
+        position: absolute;
+        bottom: 32px;
+        right: 36px;
+        font-family: "DM Sans", sans-serif;
+        font-size: 11px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #aaa;
+        cursor: pointer;
+        z-index: 3;
+        background: none;
+        border: none;
+        padding: 6px 0;
+        transition: color 0.2s;
+      }
+      #skip-btn:hover {
+        color: #555;
+      }
+      body.intro-active {
+        overflow: hidden;
+      }
+      @media (max-width: 900px) {
+        .about-layout {
+          grid-template-columns: 1fr;
+          gap: 32px;
+        }
+        .hero-top {
+          grid-template-columns: 1fr;
+        }
+        .kp-grid {
+          grid-template-columns: 1fr;
+        }
+        .kp-card-full {
+          grid-column: 1;
+        }
+        .kp-two-col {
+          grid-template-columns: 1fr;
+        }
+        .pa-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .lawsuit-grid {
+          grid-template-columns: 1fr;
+        }
+        .projects-subheader-inner {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 6px;
+        }
+      }
+      @media (max-width: 560px) {
+        .hero-name {
+          font-size: 38px;
+        }
+        .pa-grid {
+          grid-template-columns: 1fr;
+        }
+      }
     </style>
   </head>
   <body>
@@ -183,8 +1056,12 @@
       <div class="header-inner">
         <div class="logo">이사라 <span>Sarah</span></div>
         <nav>
-          <button class="nav-btn active" onclick="showPanel('about',this)">About</button>
-          <button class="nav-btn" onclick="showPanel('projects',this)">Projects</button>
+          <button class="nav-btn active" onclick="showPanel('about', this)">
+            About
+          </button>
+          <button class="nav-btn" onclick="showPanel('projects', this)">
+            Projects
+          </button>
         </nav>
       </div>
     </header>
@@ -197,7 +1074,15 @@
             <div class="hero-eyebrow">Healthcare AI Product Manager</div>
             <div class="hero-name">이사라</div>
             <div class="hero-name-en">Sarah Lee</div>
-            <div class="hero-desc">10년 이상의 기간 동안 의료기관, 의료 전문 로펌, 공공기관 및 AI 의료기기 기업에서 다양한 실무 경험을 축적하며 보건의료 산업 전반에 대한 전문성과 통합적 관점을 함양하였습니다. 이를 바탕으로 의료진, 연구개발 조직, 사업 조직 등 다양한 이해관계자 간의 이해를 조정하고 협업을 이끌어왔으며, 의료 AI 제품의 임상적 가치, 규제적 적합성 및 사업적 실현 가능성을 균형 있게 검토하여 성공적인 제품 개발과 시장 안착에 기여해왔습니다.</div>
+            <div class="hero-desc">
+              10년 이상의 기간 동안 의료기관, 의료 전문 로펌, 공공기관 및 AI
+              의료기기 기업에서 다양한 실무 경험을 축적하며 보건의료 산업 전반에
+              대한 전문성과 통합적 관점을 함양하였습니다. 이를 바탕으로 의료진,
+              연구개발 조직, 사업 조직 등 다양한 이해관계자 간의 이해를 조정하고
+              협업을 이끌어왔으며, 의료 AI 제품의 임상적 가치, 규제적 적합성 및
+              사업적 실현 가능성을 균형 있게 검토하여 성공적인 제품 개발과 시장
+              안착에 기여해왔습니다.
+            </div>
             <div class="hero-journey">
               <span class="journey-label">CAREER PATH</span>
               <span class="journey-pill">Registered Nurse</span>
@@ -211,26 +1096,40 @@
           </div>
           <div class="hero-right">
             <div class="hero-stat-grid">
-              <div class="m-cell"><span class="m-num">12+</span><div class="m-label">Years in Healthcare</div></div>
-              <div class="m-cell"><span class="m-num">5</span><div class="m-label">AI Products Launched</div></div>
-              <div class="m-cell"><span class="m-num">4</span><div class="m-label">Key Projects</div></div>
+              <div class="m-cell">
+                <span class="m-num">12+</span>
+                <div class="m-label">Years in Healthcare</div>
+              </div>
+              <div class="m-cell">
+                <span class="m-num">5</span>
+                <div class="m-label">AI Products Launched</div>
+              </div>
+              <div class="m-cell">
+                <span class="m-num">4</span>
+                <div class="m-label">Key Projects</div>
+              </div>
             </div>
             <div class="hero-contact">
-              <div class="contact-item"><div class="contact-icon">✉</div><a href="mailto:sarah_4029@outlook.com">sarah_4029@outlook.com</a></div>
-              <div class="contact-item"><div class="contact-icon">📱</div>010-2920-2002</div>
+              <div class="contact-item">
+                <div class="contact-icon">✉</div>
+                <a href="mailto:sarah_4029@outlook.com"
+                  >sarah_4029@outlook.com</a
+                >
+              </div>
+              <div class="contact-item">
+                <div class="contact-icon">📱</div>
+                010-2920-2002
+              </div>
             </div>
             <div class="hero-domains-right">
               <div class="domain-right-label">Key Domains</div>
               <div class="domain-right-tags">
                 <span class="domain-tag">Generative AI · LLM</span>
-                <span class="domain-tag">Clinical Evidence</span>
+                <span class="domain-tag">AI Medical Devices</span>
+                <span class="domain-tag">Generate Clinical Evidence</span>
                 <span class="domain-tag">SaMD Regulatory</span>
                 <span class="domain-tag">Medical QA</span>
-                <span class="domain-tag">IEC 62366-1</span>
-                <span class="domain-tag">GTM Strategy</span>
-                <span class="domain-tag">KOL Engagement</span>
-                <span class="domain-tag">Prompt Governance</span>
-                <span class="domain-tag">국책과제 PM</span>
+                <span class="domain-tag">Market Strategy</span>
               </div>
             </div>
           </div>
@@ -240,28 +1139,65 @@
       <div class="about-layout">
         <div>
           <div class="section-label">About</div>
-          <p class="summary-text"><em>임상 간호사</em>로서 축적한 환자 중심 사고를 출발점으로, 의료소송 분석 · 공공 R&amp;D DB 구축 · EMR SaaS 기획을 거쳐 <em>AI 의료기기 제품 기획·개발·시장 진입</em>에 이르기까지 <em>보건의료 전 주기를 경험</em>했습니다. 다양한 실무 경험을 통해 축적한 지식과 경험을 기반으로, 보건의료분야에 종사 중인 다양한 직무들 간에 가교 역할을 수행하고 각 분야의 협력을 이끌어내는데 제 능력을 마음껏 발휘해보고 싶습니다.</p>
+          <p class="summary-text">
+            <em>임상 간호사</em>로서 축적한 환자 중심 사고를 출발점으로,
+            의료소송 분석 · 공공 R&amp;D DB 구축 · EMR SaaS 기획을 거쳐
+            <em>AI 의료기기 제품 기획·개발·시장 진입</em>에 이르기까지
+            <em>보건의료 전 주기를 경험</em>했습니다. 다양한 실무 경험을 통해
+            축적한 지식과 경험을 기반으로, 보건의료분야에 종사 중인 다양한
+            직무들 간에 가교 역할을 수행하고 각 분야의 협력을 이끌어내는데 제
+            능력을 마음껏 발휘해보고 싶습니다.
+          </p>
 
           <div class="section-label">Career</div>
           <div class="career-cards">
-
             <div class="co-card">
               <div class="co-card-header">
                 <div class="co-card-left">
-                  <div class="co-badge" style="background:#eef2ff;color:#1a56db">AI</div>
-                  <div><div class="co-name">AITRICS</div><div class="co-period">2025.07 – 2026.04</div></div>
+                  <div
+                    class="co-badge"
+                    style="background: #eef2ff; color: #1a56db">
+                    AI
+                  </div>
+                  <div>
+                    <div class="co-name">AITRICS</div>
+                    <div class="co-period">2025.07 – 2026.04</div>
+                  </div>
                 </div>
-                <div class="co-card-right"><div class="co-role-chip">LLM-based AI Solution PM</div></div>
+                <div class="co-card-right">
+                  <div class="co-role-chip">LLM-based AI Solution PM</div>
+                </div>
               </div>
               <div class="co-card-body">
-                <div class="co-role-title">생성형 AI 기술 기반 의료 솔루션(V.Doc &amp; V.Doc Pro) 기획 및 사업화</div>
-                <div class="co-product-tag">LLM AI Solution (V.Doc / V.Doc Pro) · Dr.Answer 3.0 · AI Voucher</div>
+                <div class="co-role-title">
+                  생성형 AI 기술 기반 의료 솔루션(V.Doc &amp; V.Doc Pro) 기획 및
+                  사업화
+                </div>
+                <div class="co-product-tag">
+                  LLM AI Solution (V.Doc / V.Doc Pro) · Dr.Answer 3.0 · AI
+                  Voucher
+                </div>
                 <ul class="bullets">
-                  <li>LLM 기반 Generative AI 의료 솔루션 제품 기획 및 Consumer / Clinical Dual Track 서비스 구조 설계 (B2B · B2C)</li>
-                  <li>생성형 AI 규제 리스크 분석 및 기능 범위 기획, 경쟁 제품 벤치마킹 기반 신규 기능 및 서비스 전략 수립</li>
-                  <li>시장 조사·경쟁 분석 기반 Go-to-Market 전략 및 Pricing·수익화 전략 기획</li>
-                  <li>닥터앤서 3.0, AI바우처 등 국가 R&amp;D 사업 운영 및 다기관 컨소시엄 커뮤니케이션 총괄</li>
-                  <li>제품 설명회·세미나·학술 발표 및 마케팅 자료 기획·제작, 의료진·KOL 협업 기반 임상 가치 전달</li>
+                  <li>
+                    LLM 기반 Generative AI 의료 솔루션 제품 기획 및 Consumer /
+                    Clinical Dual Track 서비스 구조 설계 (B2B · B2C)
+                  </li>
+                  <li>
+                    생성형 AI 규제 리스크 분석 및 기능 범위 기획, 경쟁 제품
+                    벤치마킹 기반 신규 기능 및 서비스 전략 수립
+                  </li>
+                  <li>
+                    시장 조사·경쟁 분석 기반 Go-to-Market 전략 및 Pricing·수익화
+                    전략 기획
+                  </li>
+                  <li>
+                    닥터앤서 3.0, AI바우처 등 국가 R&amp;D 사업 운영 및 다기관
+                    컨소시엄 커뮤니케이션 총괄
+                  </li>
+                  <li>
+                    제품 설명회·세미나·학술 발표 및 마케팅 자료 기획·제작,
+                    의료진·KOL 협업 기반 임상 가치 전달
+                  </li>
                 </ul>
               </div>
             </div>
@@ -269,10 +1205,19 @@
             <div class="co-card">
               <div class="co-card-header">
                 <div class="co-card-left">
-                  <div class="co-badge" style="background:#f0fdf4;color:#16a34a">PM</div>
-                  <div><div class="co-name">뉴로핏</div><div class="co-period">2022.03 – 2025.07</div></div>
+                  <div
+                    class="co-badge"
+                    style="background: #f0fdf4; color: #16a34a">
+                    PM
+                  </div>
+                  <div>
+                    <div class="co-name">뉴로핏</div>
+                    <div class="co-period">2022.03 – 2025.07</div>
+                  </div>
                 </div>
-                <div class="co-card-right"><div class="co-role-chip">Product / Marketing PM</div></div>
+                <div class="co-card-right">
+                  <div class="co-role-chip">Product / Marketing PM</div>
+                </div>
               </div>
               <div class="co-card-body">
                 <div class="role-block">
@@ -280,26 +1225,61 @@
                     <span class="role-label">Product Planning Team</span>
                     <span class="role-period-small">2023 – 2025</span>
                   </div>
-                  <div class="co-role-title">AI 핵의학 뇌영상 분석 소프트웨어 기획·런칭</div>
-                  <div class="co-product-tag">SCALE PET — 식약처 2등급 의료기기 인증, 혁신의료기기 지정</div>
+                  <div class="co-role-title">
+                    AI 핵의학 뇌영상 분석 소프트웨어 기획·런칭
+                  </div>
+                  <div class="co-product-tag">
+                    SCALE PET — 식약처 2등급 의료기기 인증, 혁신의료기기 지정
+                  </div>
                   <ul class="bullets">
-                    <li>Amyloid · Tau · FP-CIT · FDG PET 다중 모달리티 분석 기능을 임상 요구로부터 역산하여 정의, 출시 로드맵 주도</li>
-                    <li>제품 개발 M0~M4 마일스톤 수립·운영 및 각 부서 산출물 관리 체계 구축</li>
-                    <li>IEC 62366-1 기반 사용적합성평가 주도 — 위해요인 분석·형성평가·총괄평가 체계적 운영</li>
-                    <li>디지털헬스케어 의료기기 시범보급사업 4개 병원 공급 선정 기여 / 총 13개 의료기관 도입 달성</li>
+                    <li>
+                      Amyloid · Tau · FP-CIT · FDG PET 다중 모달리티 분석 기능을
+                      임상 요구로부터 역산하여 정의, 출시 로드맵 주도
+                    </li>
+                    <li>
+                      제품 개발 M0~M4 마일스톤 수립·운영 및 각 부서 산출물 관리
+                      체계 구축
+                    </li>
+                    <li>
+                      IEC 62366-1 기반 사용적합성평가 주도 — 위해요인
+                      분석·형성평가·총괄평가 체계적 운영
+                    </li>
+                    <li>
+                      디지털헬스케어 의료기기 시범보급사업 4개 병원 공급 선정
+                      기여 / 총 13개 의료기관 도입 달성
+                    </li>
                   </ul>
                 </div>
-                <div class="role-block" style="margin-top:22px;padding-top:22px;border-top:1px solid var(--line);">
+                <div
+                  class="role-block"
+                  style="
+                    margin-top: 22px;
+                    padding-top: 22px;
+                    border-top: 1px solid var(--line);
+                  ">
                   <div class="role-block-header">
                     <span class="role-label">Clinical Marketing Team</span>
                     <span class="role-period-small">2022 – 2023</span>
                   </div>
-                  <div class="co-role-title">AI 뇌혈관질환 분석 신제품 라인 GTM 전략</div>
-                  <div class="co-product-tag">SCALE CTP · MRI · MRA — 신제품 3개 라인 동시 출시 전략</div>
+                  <div class="co-role-title">
+                    AI 뇌혈관질환 분석 신제품 라인 GTM 전략
+                  </div>
+                  <div class="co-product-tag">
+                    SCALE CTP · MRI · MRA — 신제품 3개 라인 동시 출시 전략
+                  </div>
                   <ul class="bullets">
-                    <li>국내외 경쟁사(Rapid, Viz.ai, Snappy 등) 비교 분석 기반 차별화 포인트 도출 및 포지셔닝 메시지 아키텍처 설계</li>
-                    <li>SK C&amp;C와의 전략적 MOU 체결 주도 — Co-marketing 실행 및 영업 네트워크 확대</li>
-                    <li>Advisory Board Meeting 운영 및 KOL Engagement로 레퍼런스 사이트 확보, 영업 주기 단축 기여</li>
+                    <li>
+                      국내외 경쟁사(Rapid, Viz.ai, Snappy 등) 비교 분석 기반
+                      차별화 포인트 도출 및 포지셔닝 메시지 아키텍처 설계
+                    </li>
+                    <li>
+                      SK C&amp;C와의 전략적 MOU 체결 주도 — Co-marketing 실행 및
+                      영업 네트워크 확대
+                    </li>
+                    <li>
+                      Advisory Board Meeting 운영 및 KOL Engagement로 레퍼런스
+                      사이트 확보, 영업 주기 단축 기여
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -308,17 +1288,36 @@
             <div class="co-card">
               <div class="co-card-header">
                 <div class="co-card-left">
-                  <div class="co-badge" style="background:#f0fdf4;color:#16a34a">KHNP</div>
-                  <div><div class="co-name">한국수력원자력 방사선보건원</div><div class="co-period">2020.03 – 2022.02</div></div>
+                  <div
+                    class="co-badge"
+                    style="background: #f0fdf4; color: #16a34a">
+                    KHNP
+                  </div>
+                  <div>
+                    <div class="co-name">한국수력원자력 방사선보건원</div>
+                    <div class="co-period">2020.03 – 2022.02</div>
+                  </div>
                 </div>
-                <div class="co-card-right"><div class="co-role-chip">Medical Consultant</div></div>
+                <div class="co-card-right">
+                  <div class="co-role-chip">Medical Consultant</div>
+                </div>
               </div>
               <div class="co-card-body">
-                <div class="co-role-title">방사선 영향평가 건강조사 DB 구축 연구</div>
-                <div class="co-product-tag">방사선 피폭 선량별 고혈압·당뇨·암 질환 DB 구축</div>
+                <div class="co-role-title">
+                  방사선 영향평가 건강조사 DB 구축 연구
+                </div>
+                <div class="co-product-tag">
+                  방사선 피폭 선량별 고혈압·당뇨·암 질환 DB 구축
+                </div>
                 <ul class="bullets">
-                  <li>원전 종사자 대상 방사선 영향평가 건강조사 DB 구축 및 임상 데이터 관리 수행</li>
-                  <li>연구 데이터 정리·보고서 작성 지원 및 다부서 협업 기반 연구 행정 업무 수행</li>
+                  <li>
+                    원전 종사자 대상 방사선 영향평가 건강조사 DB 구축 및 임상
+                    데이터 관리 수행
+                  </li>
+                  <li>
+                    연구 데이터 정리·보고서 작성 지원 및 다부서 협업 기반 연구
+                    행정 업무 수행
+                  </li>
                 </ul>
               </div>
             </div>
@@ -326,14 +1325,25 @@
             <div class="co-card">
               <div class="co-card-header">
                 <div class="co-card-left">
-                  <div class="co-badge" style="background:#fdf2f8;color:#9333ea">LAW</div>
-                  <div><div class="co-name">법무법인 세승</div><div class="co-period">2017.03 – 2020.02</div></div>
+                  <div
+                    class="co-badge"
+                    style="background: #fdf2f8; color: #9333ea">
+                    LAW
+                  </div>
+                  <div>
+                    <div class="co-name">법무법인 세승</div>
+                    <div class="co-period">2017.03 – 2020.02</div>
+                  </div>
                 </div>
-                <div class="co-card-right"><div class="co-role-chip">Medical Consultant</div></div>
+                <div class="co-card-right">
+                  <div class="co-role-chip">Medical Consultant</div>
+                </div>
               </div>
               <div class="co-card-body">
-                <div class="co-role-title">의료소송 임상 분석 및 전문 의견서 작성</div>
-                <div class="lawsuit-grid" style="margin-top:12px;">
+                <div class="co-role-title">
+                  의료소송 임상 분석 및 전문 의견서 작성
+                </div>
+                <div class="lawsuit-grid" style="margin-top: 12px">
                   <div class="lawsuit-col">
                     <div class="lawsuit-col-title">소송 제기 전</div>
                     <ul>
@@ -355,21 +1365,38 @@
             <div class="co-card">
               <div class="co-card-header">
                 <div class="co-card-left">
-                  <div class="co-badge" style="background:#fef3c7;color:#d97706">AMC</div>
-                  <div><div class="co-name">서울아산병원</div><div class="co-period">2013 – 2017</div></div>
+                  <div
+                    class="co-badge"
+                    style="background: #fef3c7; color: #d97706">
+                    AMC
+                  </div>
+                  <div>
+                    <div class="co-name">서울아산병원</div>
+                    <div class="co-period">2013 – 2017</div>
+                  </div>
                 </div>
-                <div class="co-card-right"><div class="co-role-chip">Registered Nurse</div></div>
+                <div class="co-card-right">
+                  <div class="co-role-chip">Registered Nurse</div>
+                </div>
               </div>
               <div class="co-card-body">
                 <div class="co-role-title">신경외과 병동 간호사</div>
-                <div class="co-product-tag">Neuro-surgery · Neurovascular disease · Brain-tumor · Spinal disease</div>
+                <div class="co-product-tag">
+                  Neuro-surgery · Neurovascular disease · Brain-tumor · Spinal
+                  disease
+                </div>
                 <ul class="bullets">
-                  <li>신경외과 환자 대상 전문 간호 업무 수행 — 뇌·척추 질환의 임상 현장 경험 축적</li>
-                  <li>의료진·다부서 협업을 통한 환자 중심 케어 제공 및 근거 기반 실무 역량 함양</li>
+                  <li>
+                    신경외과 환자 대상 전문 간호 업무 수행 — 뇌·척추 질환의 임상
+                    현장 경험 축적
+                  </li>
+                  <li>
+                    의료진·다부서 협업을 통한 환자 중심 케어 제공 및 근거 기반
+                    실무 역량 함양
+                  </li>
                 </ul>
               </div>
             </div>
-
           </div>
         </div>
 
@@ -395,28 +1422,52 @@
           </div>
           <div class="side-card">
             <div class="side-card-title">Education</div>
-            <div style="font-size:13px;color:var(--ink);font-weight:600;margin-bottom:3px;">간호학 학사 (삼육대학교)</div>
-            <div style="font-size:12px;color:var(--muted);">2009 – 2012</div>
+            <div
+              style="
+                font-size: 13px;
+                color: var(--ink);
+                font-weight: 600;
+                margin-bottom: 3px;
+              ">
+              간호학 학사 (삼육대학교)
+            </div>
+            <div style="font-size: 12px; color: var(--muted)">2009 – 2012</div>
           </div>
           <div class="side-card">
             <div class="side-card-title">License &amp; Certificate</div>
             <ul class="cert-list">
-              <li>간호사 면허</li><li>CPCR / BLS</li><li>MOS MASTER</li><li>컴퓨터활용능력</li>
+              <li>간호사 면허</li>
+              <li>CPCR / BLS</li>
+              <li>MOS MASTER</li>
+              <li>컴퓨터활용능력</li>
             </ul>
           </div>
           <div class="side-card">
             <div class="side-card-title">Expertise Profile</div>
             <div class="expertise-item">
-              <div class="expertise-title">의학 근거 기반 전략 커뮤니케이션</div>
-              <div class="expertise-desc">최신 임상 데이터를 기반으로 의료진·연구자·이해관계자 대상 전문적 논의를 주도</div>
+              <div class="expertise-title">
+                의학 근거 기반 전략 커뮤니케이션
+              </div>
+              <div class="expertise-desc">
+                최신 임상 데이터를 기반으로 의료진·연구자·이해관계자 대상 전문적
+                논의를 주도
+              </div>
             </div>
             <div class="expertise-item">
               <div class="expertise-title">의학 정보 전략적 분석 및 활용</div>
-              <div class="expertise-desc">KOL 교류·학술대회·경쟁사 모니터링을 통해 시장 인사이트를 도출, 제품 전략·파트너십으로 사업 성과 전환</div>
+              <div class="expertise-desc">
+                KOL 교류·학술대회·경쟁사 모니터링을 통해 시장 인사이트를 도출,
+                제품 전략·파트너십으로 사업 성과 전환
+              </div>
             </div>
             <div class="expertise-item">
-              <div class="expertise-title">학습 민첩성 &amp; 최신 의학 동향 내재화</div>
-              <div class="expertise-desc">국내외 학술대회·최신 저널·전문가 네트워크를 통해 의학 동향을 상시 내재화하며 조직 전체에 근거 기반 정보를 전파</div>
+              <div class="expertise-title">
+                학습 민첩성 &amp; 최신 의학 동향 내재화
+              </div>
+              <div class="expertise-desc">
+                국내외 학술대회·최신 저널·전문가 네트워크를 통해 의학 동향을
+                상시 내재화하며 조직 전체에 근거 기반 정보를 전파
+              </div>
             </div>
           </div>
         </aside>
@@ -441,45 +1492,92 @@
 
       <div class="projects-wrap">
         <div class="kp-grid">
-
           <!-- KP 01 -->
           <div class="kp-card">
             <div class="kp-header-row">
               <div class="kp-num">01</div>
               <div class="kp-header-meta">
-                <div class="kp-badge-row"><span class="kp-company-tag">뉴로핏</span></div>
-                <div class="kp-title">Product Planning &amp; Launch — AI-based BRAIN-PET Image Analysis S/W (SCALE PET)</div>
+                <div class="kp-badge-row">
+                  <span class="kp-company-tag">뉴로핏</span>
+                </div>
+                <div class="kp-title">
+                  Product Planning &amp; Launch — AI-based BRAIN-PET Image
+                  Analysis S/W (SCALE PET)
+                </div>
                 <div class="kp-goal-label">Goal</div>
-                <div class="kp-goal">퇴행성 뇌질환 진단 자동 보조 소프트웨어 기획·출시 — 식약처 2등급 의료기기 인증 · 혁신의료기기 지정 · 시장 도입 달성</div>
+                <div class="kp-goal">
+                  퇴행성 뇌질환 진단 자동 보조 소프트웨어 기획·출시 — 식약처
+                  2등급 의료기기 인증 · 혁신의료기기 지정 · 시장 도입 달성
+                </div>
               </div>
             </div>
             <div class="kp-divider"></div>
             <div class="kp-two-col">
               <div>
                 <div class="kp-sub-label">Background &amp; Problem</div>
-                <div class="kp-body"><ul>
-                  <li>알츠하이머병이 국내 치매 원인의 75.5%를 차지하며, 2024년 초고령사회 진입으로 환자 수 급증 — 조기 진단 수요 폭발적 증가</li>
-                  <li>레켐비(레카네맙) 국내 허가(2024.05), 도나네맙 FDA 승인 권고 — 치료제 등장으로 Amyloid PET 정량 분석 소프트웨어가 임상 필수 도구로 부상</li>
-                  <li>기존 수작업 판독 방식의 한계 — 핵의학과 의사의 판독 부담 과중, 기관간 정량 수치 비교 불가, Centiloid 환산 미표준화</li>
-                </ul></div>
+                <div class="kp-body">
+                  <ul>
+                    <li>
+                      알츠하이머병이 국내 치매 원인의 75.5%를 차지하며, 2024년
+                      초고령사회 진입으로 환자 수 급증 — 조기 진단 수요 폭발적
+                      증가
+                    </li>
+                    <li>
+                      레켐비(레카네맙) 국내 허가(2024.05), 도나네맙 FDA 승인
+                      권고 — 치료제 등장으로 Amyloid PET 정량 분석 소프트웨어가
+                      임상 필수 도구로 부상
+                    </li>
+                    <li>
+                      기존 수작업 판독 방식의 한계 — 핵의학과 의사의 판독 부담
+                      과중, 기관간 정량 수치 비교 불가, Centiloid 환산 미표준화
+                    </li>
+                  </ul>
+                </div>
               </div>
               <div>
                 <div class="kp-sub-label">My Role &amp; Decision</div>
-                <div class="kp-body"><ul>
-                  <li>Amyloid · Tau · FP-CIT · FDG PET 4종 모달리티 기능을 "핵의학과 의사가 실제로 필요한 것"으로부터 역산하여 우선순위 정의 — 기능 범위 결정 주도</li>
-                  <li>M0~M4 5단계 마일스톤 체계 수립, 24개 필수 산출물(UEP·CDP·CEP·LSP 등) 기한 내 완료 관리</li>
-                  <li>IEC 62366-1 사용적합성 평가 직접 주도 — 위해요인 분석·형성평가·총괄평가 전 과정 수행, 도출된 개선안을 설계 변경으로 반영하여 인증 획득</li>
-                  <li>디지털헬스케어 의료기기 시범보급사업 선정을 위한 PoC 기획 및 임상 근거 자료 작성 주도</li>
-                </ul></div>
+                <div class="kp-body">
+                  <ul>
+                    <li>
+                      Amyloid · Tau · FP-CIT · FDG PET 4종 모달리티 기능을
+                      "핵의학과 의사가 실제로 필요한 것"으로부터 역산하여
+                      우선순위 정의 — 기능 범위 결정 주도
+                    </li>
+                    <li>
+                      M0~M4 5단계 마일스톤 체계 수립, 24개 필수
+                      산출물(UEP·CDP·CEP·LSP 등) 기한 내 완료 관리
+                    </li>
+                    <li>
+                      IEC 62366-1 사용적합성 평가 직접 주도 — 위해요인
+                      분석·형성평가·총괄평가 전 과정 수행, 도출된 개선안을 설계
+                      변경으로 반영하여 인증 획득
+                    </li>
+                    <li>
+                      디지털헬스케어 의료기기 시범보급사업 선정을 위한 PoC 기획
+                      및 임상 근거 자료 작성 주도
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
-            <div style="margin-top:20px;">
+            <div style="margin-top: 20px">
               <div class="kp-outcome-label">Key Outcomes</div>
               <div class="kp-outcome-row">
-                <span class="kp-outcome-chip"><span class="chip-icon">🏥</span> 초기 도입 13개 상급종합병원 — 목표 초과 달성</span>
-                <span class="kp-outcome-chip"><span class="chip-icon">✅</span> 식약처 2등급 의료기기 인증 획득</span>
-                <span class="kp-outcome-chip"><span class="chip-icon">⭐</span> 혁신의료기기 지정</span>
-                <span class="kp-outcome-chip"><span class="chip-icon">📋</span> IEC 62366-1 사용적합성 평가 완료 · 설계 개선 반영</span>
+                <span class="kp-outcome-chip"
+                  ><span class="chip-icon">🏥</span> 초기 도입 13개 상급종합병원
+                  — 목표 초과 달성</span
+                >
+                <span class="kp-outcome-chip"
+                  ><span class="chip-icon">✅</span> 식약처 2등급 의료기기 인증
+                  획득</span
+                >
+                <span class="kp-outcome-chip"
+                  ><span class="chip-icon">⭐</span> 혁신의료기기 지정</span
+                >
+                <span class="kp-outcome-chip"
+                  ><span class="chip-icon">📋</span> IEC 62366-1 사용적합성 평가
+                  완료 · 설계 개선 반영</span
+                >
               </div>
             </div>
           </div>
@@ -489,38 +1587,84 @@
             <div class="kp-header-row">
               <div class="kp-num">02</div>
               <div class="kp-header-meta">
-                <div class="kp-badge-row"><span class="kp-company-tag">뉴로핏</span></div>
-                <div class="kp-title">Cerebrovascular AI 신제품 3종 동시 GTM 설계 — SCALE CTP · MRI · MRA</div>
+                <div class="kp-badge-row">
+                  <span class="kp-company-tag">뉴로핏</span>
+                </div>
+                <div class="kp-title">
+                  Cerebrovascular AI 신제품 3종 동시 GTM 설계 — SCALE CTP · MRI
+                  · MRA
+                </div>
                 <div class="kp-goal-label">Goal</div>
-                <div class="kp-goal">AI 기반 뇌혈관질환 영상 분석 신제품 3개 라인 동시 출시 — 국내 경쟁 우위 포지셔닝 확보 및 전략적 파트너십 기반 시장 진입 가속</div>
+                <div class="kp-goal">
+                  AI 기반 뇌혈관질환 영상 분석 신제품 3개 라인 동시 출시 — 국내
+                  경쟁 우위 포지셔닝 확보 및 전략적 파트너십 기반 시장 진입 가속
+                </div>
               </div>
             </div>
             <div class="kp-divider"></div>
             <div class="kp-two-col">
               <div>
                 <div class="kp-sub-label">Background &amp; Problem</div>
-                <div class="kp-body"><ul>
-                  <li>뇌혈관질환 국내 사망 원인 5위 — 의사 파업 등 의료공백으로 AI 보조 진단 수요 급증했으나, 기존 해외 제품(Rapid, Viz.ai, Snappy)이 시장 선점</li>
-                  <li>국내 규제 환경(식약처 허가) 및 PACS 연동 방식이 해외 제품과 달라, 동일 스펙으로는 국내 병원 도입 불가 — 현지화 전략 필요</li>
-                  <li>마케팅 팀 단독으로 3개 신제품을 동시에 출시해야 하는 리소스 제약 상황</li>
-                </ul></div>
+                <div class="kp-body">
+                  <ul>
+                    <li>
+                      뇌혈관질환 국내 사망 원인 5위 — 의사 파업 등 의료공백으로
+                      AI 보조 진단 수요 급증했으나, 기존 해외 제품(Rapid,
+                      Viz.ai, Snappy)이 시장 선점
+                    </li>
+                    <li>
+                      국내 규제 환경(식약처 허가) 및 PACS 연동 방식이 해외
+                      제품과 달라, 동일 스펙으로는 국내 병원 도입 불가 — 현지화
+                      전략 필요
+                    </li>
+                    <li>
+                      마케팅 팀 단독으로 3개 신제품을 동시에 출시해야 하는
+                      리소스 제약 상황
+                    </li>
+                  </ul>
+                </div>
               </div>
               <div>
                 <div class="kp-sub-label">My Role &amp; Decision</div>
-                <div class="kp-body"><ul>
-                  <li>4개 경쟁사 제품 허가 현황·AIF/VOF 재분석 방식·Mobile 지원 여부 등 항목별 비교표 작성 → 국내 특화 차별화 포인트 3가지 도출, 제품 라인별 포지셔닝 메시지 설계</li>
-                  <li>리소스 한계를 돌파하기 위해 SK C&amp;C와의 전략적 MOU 체결을 직접 주도 — 대형 IT 기업 의료기관 네트워크를 레버리지하여 영업 접점 구조적 확대</li>
-                  <li>KOL Advisory Board 운영으로 레퍼런스 사이트 확보, 영업 주기 단축 및 임상 근거 강화 병행</li>
-                  <li>RSNA 포함 국내외 학회·전시 커뮤니케이션 기획·운영으로 글로벌 인지도 확장</li>
-                </ul></div>
+                <div class="kp-body">
+                  <ul>
+                    <li>
+                      4개 경쟁사 제품 허가 현황·AIF/VOF 재분석 방식·Mobile 지원
+                      여부 등 항목별 비교표 작성 → 국내 특화 차별화 포인트 3가지
+                      도출, 제품 라인별 포지셔닝 메시지 설계
+                    </li>
+                    <li>
+                      리소스 한계를 돌파하기 위해 SK C&amp;C와의 전략적 MOU
+                      체결을 직접 주도 — 대형 IT 기업 의료기관 네트워크를
+                      레버리지하여 영업 접점 구조적 확대
+                    </li>
+                    <li>
+                      KOL Advisory Board 운영으로 레퍼런스 사이트 확보, 영업
+                      주기 단축 및 임상 근거 강화 병행
+                    </li>
+                    <li>
+                      RSNA 포함 국내외 학회·전시 커뮤니케이션 기획·운영으로
+                      글로벌 인지도 확장
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
-            <div style="margin-top:20px;">
+            <div style="margin-top: 20px">
               <div class="kp-outcome-label">Key Outcomes</div>
               <div class="kp-outcome-row">
-                <span class="kp-outcome-chip"><span class="chip-icon">🤝</span> SK C&amp;C MOU 체결 — 의료기관 네트워크 기반 영업 채널 확보</span>
-                <span class="kp-outcome-chip"><span class="chip-icon">📊</span> 임상 성능 검증 AUC 0.982 · 민감도 97.2% · 특이도 96.9%</span>
-                <span class="kp-outcome-chip"><span class="chip-icon">🏆</span> 혁신의료기기 통합심사 신청 — 급여화 트랙 기반 마련</span>
+                <span class="kp-outcome-chip"
+                  ><span class="chip-icon">🤝</span> SK C&amp;C MOU 체결 —
+                  의료기관 네트워크 기반 영업 채널 확보</span
+                >
+                <span class="kp-outcome-chip"
+                  ><span class="chip-icon">📊</span> 임상 성능 검증 AUC 0.982 ·
+                  민감도 97.2% · 특이도 96.9%</span
+                >
+                <span class="kp-outcome-chip"
+                  ><span class="chip-icon">🏆</span> 혁신의료기기 통합심사 신청
+                  — 급여화 트랙 기반 마련</span
+                >
               </div>
             </div>
           </div>
@@ -528,41 +1672,91 @@
           <!-- KP 03 -->
           <div class="kp-card">
             <div class="kp-header-row">
-              <div class="kp-num" style="color:#c7d7f4;">03</div>
+              <div class="kp-num" style="color: #c7d7f4">03</div>
               <div class="kp-header-meta">
-                <div class="kp-badge-row"><span class="kp-company-tag">AITRICS</span></div>
-                <div class="kp-title">Product Planning &amp; GTM Strategy — LLM-based Generative AI Healthcare Solution (V.Doc &amp; V.Doc Pro)</div>
+                <div class="kp-badge-row">
+                  <span class="kp-company-tag">AITRICS</span>
+                </div>
+                <div class="kp-title">
+                  Product Planning &amp; GTM Strategy — LLM-based Generative AI
+                  Healthcare Solution (V.Doc &amp; V.Doc Pro)
+                </div>
                 <div class="kp-goal-label">Goal</div>
-                <div class="kp-goal">V.Doc(환자용) / V.Doc Pro(의료진용) Dual-Track 제품 전략 수립 및 시장 진입 · Consumer → Clinical 연계 수익화 구조 설계</div>
+                <div class="kp-goal">
+                  V.Doc(환자용) / V.Doc Pro(의료진용) Dual-Track 제품 전략 수립
+                  및 시장 진입 · Consumer → Clinical 연계 수익화 구조 설계
+                </div>
               </div>
             </div>
             <div class="kp-divider"></div>
             <div class="kp-two-col">
               <div>
                 <div class="kp-sub-label">Background &amp; Problem</div>
-                <div class="kp-body"><ul>
-                  <li>AI 헬스케어 시장 2024년 $14.9B → 2030년 $110.6B (CAGR 38.6%) — LLM 기반 의료 Co-pilot이 글로벌 표준으로 부상(Nuance/DAX, Abridge, Nabla), 국내 공백 존재</li>
-                  <li>국내 의료진의 핵심 페인포인트: 외래 진료당 평균 5분 미만, 비정형 음성 메모·수기 처방 등 문서화 부담이 진료 품질 저하 요인으로 작용</li>
-                  <li>단순 B2B SaaS 모델로는 병원 의사결정 구조상 도입 속도 한계 — B2C(환자) 접점을 통해 B2B 도입 수요를 역방향으로 창출하는 Dual Track 전략 필요</li>
-                </ul></div>
+                <div class="kp-body">
+                  <ul>
+                    <li>
+                      AI 헬스케어 시장 2024년 $14.9B → 2030년 $110.6B (CAGR
+                      38.6%) — LLM 기반 의료 Co-pilot이 글로벌 표준으로
+                      부상(Nuance/DAX, Abridge, Nabla), 국내 공백 존재
+                    </li>
+                    <li>
+                      국내 의료진의 핵심 페인포인트: 외래 진료당 평균 5분 미만,
+                      비정형 음성 메모·수기 처방 등 문서화 부담이 진료 품질 저하
+                      요인으로 작용
+                    </li>
+                    <li>
+                      단순 B2B SaaS 모델로는 병원 의사결정 구조상 도입 속도 한계
+                      — B2C(환자) 접점을 통해 B2B 도입 수요를 역방향으로
+                      창출하는 Dual Track 전략 필요
+                    </li>
+                  </ul>
+                </div>
               </div>
               <div>
                 <div class="kp-sub-label">My Role &amp; Decision</div>
-                <div class="kp-body"><ul>
-                  <li>V.Doc(B2C) → V.Doc Pro(B2B) 연계 수익화 구조를 직접 설계 — 환자가 V.Doc으로 문진 후 V.Doc Pro 병원으로 유입되는 Funnel 구조 정의</li>
-                  <li>생성형 AI 규제 리스크 분석 수행 — 의료기기 해당 여부·책임 소재·프롬프트 거버넌스 기준 정립, 안전한 기능 범위 결정에 기여</li>
-                  <li>VOC 기반 기능 우선순위 재조정 수행 — 초기 기획 대비 핵심 기능 scope 조정, 출시 일정 내 MVP 범위 확정</li>
-                  <li>Acquisition·Retention 전략 수립 및 단계별 수익화 로드맵 운영 (앱 출시 25.11 → 과금 거래처 확보 26년 4Q 목표)</li>
-                </ul></div>
+                <div class="kp-body">
+                  <ul>
+                    <li>
+                      V.Doc(B2C) → V.Doc Pro(B2B) 연계 수익화 구조를 직접 설계 —
+                      환자가 V.Doc으로 문진 후 V.Doc Pro 병원으로 유입되는
+                      Funnel 구조 정의
+                    </li>
+                    <li>
+                      생성형 AI 규제 리스크 분석 수행 — 의료기기 해당 여부·책임
+                      소재·프롬프트 거버넌스 기준 정립, 안전한 기능 범위 결정에
+                      기여
+                    </li>
+                    <li>
+                      VOC 기반 기능 우선순위 재조정 수행 — 초기 기획 대비 핵심
+                      기능 scope 조정, 출시 일정 내 MVP 범위 확정
+                    </li>
+                    <li>
+                      Acquisition·Retention 전략 수립 및 단계별 수익화 로드맵
+                      운영 (앱 출시 25.11 → 과금 거래처 확보 26년 4Q 목표)
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
-            <div style="margin-top:20px;">
+            <div style="margin-top: 20px">
               <div class="kp-outcome-label">Key Outcomes</div>
               <div class="kp-outcome-row">
-                <span class="kp-outcome-chip"><span class="chip-icon">🚀</span> V.Doc 앱 출시 완료 (2025.11)</span>
-                <span class="kp-outcome-chip"><span class="chip-icon">🗺️</span> Consumer→Clinical 수익화 로드맵 수립 · 단계별 실행 중</span>
-                <span class="kp-outcome-chip"><span class="chip-icon">⚖️</span> 생성형 AI 규제 리스크 분석 · 프롬프트 거버넌스 기준 정립</span>
-                <span class="kp-outcome-chip"><span class="chip-icon">🔄</span> VOC 기반 MVP 범위 재정의 · 출시 일정 내 완료</span>
+                <span class="kp-outcome-chip"
+                  ><span class="chip-icon">🚀</span> V.Doc 앱 출시 완료
+                  (2025.11)</span
+                >
+                <span class="kp-outcome-chip"
+                  ><span class="chip-icon">🗺️</span> Consumer→Clinical 수익화
+                  로드맵 수립 · 단계별 실행 중</span
+                >
+                <span class="kp-outcome-chip"
+                  ><span class="chip-icon">⚖️</span> 생성형 AI 규제 리스크 분석
+                  · 프롬프트 거버넌스 기준 정립</span
+                >
+                <span class="kp-outcome-chip"
+                  ><span class="chip-icon">🔄</span> VOC 기반 MVP 범위 재정의 ·
+                  출시 일정 내 완료</span
+                >
               </div>
             </div>
           </div>
@@ -570,125 +1764,270 @@
           <!-- KP 04 -->
           <div class="kp-card">
             <div class="kp-header-row">
-              <div class="kp-num" style="color:#c7d7f4;">04</div>
+              <div class="kp-num" style="color: #c7d7f4">04</div>
               <div class="kp-header-meta">
-                <div class="kp-badge-row"><span class="kp-company-tag">AITRICS</span></div>
-                <div class="kp-title">DR.ANSWER 3.0 — National AI Healthcare R&amp;D PM · Agentic AI Service Architecture</div>
+                <div class="kp-badge-row">
+                  <span class="kp-company-tag">AITRICS</span>
+                </div>
+                <div class="kp-title">
+                  DR.ANSWER 3.0 — National AI Healthcare R&amp;D PM · Agentic AI
+                  Service Architecture
+                </div>
                 <div class="kp-goal-label">Goal</div>
-                <div class="kp-goal">진단 중심 AI의 한계를 넘어 — 퇴원 후 데이터 공백을 해소하고 병원-가정 간 연속적 케어를 실현하는 Agentic AI 예후 관리 서비스 개발</div>
+                <div class="kp-goal">
+                  진단 중심 AI의 한계를 넘어 — 퇴원 후 데이터 공백을 해소하고
+                  병원-가정 간 연속적 케어를 실현하는 Agentic AI 예후 관리
+                  서비스 개발
+                </div>
               </div>
             </div>
             <div class="kp-divider"></div>
             <div class="kp-two-col">
               <div>
                 <div class="kp-sub-label">Background &amp; Problem</div>
-                <div class="kp-body"><ul>
-                  <li>닥터앤서 1.0·2.0이 병원 내 진단·치료 보조에 집중했지만, 암·만성질환 합병증의 상당수는 퇴원 후 재택 기간에 발생 — 케어의 연속성 부재가 핵심 문제</li>
-                  <li>2024년 초고령사회 진입, 암 생존자 관리 비용이 건강보험 재정의 구조적 문제로 부상 — 정부가 예후 관리 중심 AI로 닥터앤서 방향 전환 결정</li>
-                  <li>단일 기관 데이터로는 예후 예측 모델의 일반화 불가 — 다기관 데이터 연계 및 PHR·웨어러블 통합 구조가 기술적 전제조건</li>
-                </ul></div>
+                <div class="kp-body">
+                  <ul>
+                    <li>
+                      닥터앤서 1.0·2.0이 병원 내 진단·치료 보조에 집중했지만,
+                      암·만성질환 합병증의 상당수는 퇴원 후 재택 기간에 발생 —
+                      케어의 연속성 부재가 핵심 문제
+                    </li>
+                    <li>
+                      2024년 초고령사회 진입, 암 생존자 관리 비용이 건강보험
+                      재정의 구조적 문제로 부상 — 정부가 예후 관리 중심 AI로
+                      닥터앤서 방향 전환 결정
+                    </li>
+                    <li>
+                      단일 기관 데이터로는 예후 예측 모델의 일반화 불가 — 다기관
+                      데이터 연계 및 PHR·웨어러블 통합 구조가 기술적 전제조건
+                    </li>
+                  </ul>
+                </div>
               </div>
               <div>
                 <div class="kp-sub-label">My Role &amp; Decision</div>
-                <div class="kp-body"><ul>
-                  <li>소아만성호흡부전·위암·대장암 3개 질환군 대상 서비스 시나리오별 AI Agent 구조 및 데이터 흐름도 설계 — 병원(EMR) ↔ 웨어러블 ↔ 환자 앱 연계 아키텍처 확정 (1차년도 100% 완료)</li>
-                  <li>위암 환자 재택 모니터링 앱 기능 정의서 작성 완료 — 의료진 웹 화면·환자 앱·챗봇·PRO 입력 4개 화면 기능 전체 정의</li>
-                  <li>6개 다기관 컨소시엄 인허가 준비 전략 수립 — 다기관 회의 주도, 웨어러블 디바이스 임상시험 전략 수립 (100% 완료)</li>
-                  <li>연차별 WBS 관리·운영으로 1차년도 납기 내 3건 필수 산출물 전량 완료</li>
-                </ul></div>
+                <div class="kp-body">
+                  <ul>
+                    <li>
+                      소아만성호흡부전·위암·대장암 3개 질환군 대상 서비스
+                      시나리오별 AI Agent 구조 및 데이터 흐름도 설계 — 병원(EMR)
+                      ↔ 웨어러블 ↔ 환자 앱 연계 아키텍처 확정 (1차년도 100%
+                      완료)
+                    </li>
+                    <li>
+                      위암 환자 재택 모니터링 앱 기능 정의서 작성 완료 — 의료진
+                      웹 화면·환자 앱·챗봇·PRO 입력 4개 화면 기능 전체 정의
+                    </li>
+                    <li>
+                      6개 다기관 컨소시엄 인허가 준비 전략 수립 — 다기관 회의
+                      주도, 웨어러블 디바이스 임상시험 전략 수립 (100% 완료)
+                    </li>
+                    <li>
+                      연차별 WBS 관리·운영으로 1차년도 납기 내 3건 필수 산출물
+                      전량 완료
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
-            <div style="margin-top:20px;">
+            <div style="margin-top: 20px">
               <div class="kp-outcome-label">Key Outcomes</div>
               <div class="kp-outcome-row">
-                <span class="kp-outcome-chip"><span class="chip-icon">🏗️</span> Agentic AI 서비스 아키텍처 설계 완료 (1차년도 100%)</span>
-                <span class="kp-outcome-chip"><span class="chip-icon">🏥</span> 6개 상급종합병원 다기관 컨소시엄 PM</span>
-                <span class="kp-outcome-chip"><span class="chip-icon">📱</span> 위암 환자 재택 모니터링 앱 기능 정의 완료</span>
-                <span class="kp-outcome-chip"><span class="chip-icon">📄</span> 1차년도 필수 산출물 3건 납기 내 전량 완료</span>
+                <span class="kp-outcome-chip"
+                  ><span class="chip-icon">🏗️</span> Agentic AI 서비스 아키텍처
+                  설계 완료 (1차년도 100%)</span
+                >
+                <span class="kp-outcome-chip"
+                  ><span class="chip-icon">🏥</span> 6개 상급종합병원 다기관
+                  컨소시엄 PM</span
+                >
+                <span class="kp-outcome-chip"
+                  ><span class="chip-icon">📱</span> 위암 환자 재택 모니터링 앱
+                  기능 정의 완료</span
+                >
+                <span class="kp-outcome-chip"
+                  ><span class="chip-icon">📄</span> 1차년도 필수 산출물 3건
+                  납기 내 전량 완료</span
+                >
               </div>
             </div>
           </div>
-
-        </div><!-- /kp-grid -->
+        </div>
+        <!-- /kp-grid -->
 
         <!-- PROJECT ACTIVITIES -->
         <div class="pa-section-label">Project Activities</div>
         <div class="pa-grid">
-
           <div class="pa-card">
             <div class="pa-icon">📋</div>
-            <div class="pa-title">Planning &amp; Creating Marketing Materials</div>
+            <div class="pa-title">
+              Planning &amp; Creating Marketing Materials
+            </div>
             <div class="pa-obj-label">Objective</div>
-            <div class="pa-obj">의료 전문가 대상 효과적인 제품 홍보 및 임상적 신뢰 구축</div>
-            <div class="pa-body"><ul>
-              <li>neurophet AQUA 임상증례집 기획·제작 — 과학적 근거 기반 콘텐츠로 임상 현장 신뢰도 구축</li>
-              <li>KIMES 2024 E-brochure &amp; E-guestbook 기획·제작 — 디지털 학술 프로모션 효율 극대화</li>
-              <li>RSNA 홍보 영상 콘텐츠 기획·제작 — 글로벌 임상 커뮤니티 브랜드 인지도 확장</li>
-            </ul></div>
+            <div class="pa-obj">
+              의료 전문가 대상 효과적인 제품 홍보 및 임상적 신뢰 구축
+            </div>
+            <div class="pa-body">
+              <ul>
+                <li>
+                  neurophet AQUA 임상증례집 기획·제작 — 과학적 근거 기반
+                  콘텐츠로 임상 현장 신뢰도 구축
+                </li>
+                <li>
+                  KIMES 2024 E-brochure &amp; E-guestbook 기획·제작 — 디지털
+                  학술 프로모션 효율 극대화
+                </li>
+                <li>
+                  RSNA 홍보 영상 콘텐츠 기획·제작 — 글로벌 임상 커뮤니티 브랜드
+                  인지도 확장
+                </li>
+              </ul>
+            </div>
           </div>
 
           <div class="pa-card">
             <div class="pa-icon">🤝</div>
-            <div class="pa-title">Build &amp; Management of KOLs: Medical Advisory</div>
+            <div class="pa-title">
+              Build &amp; Management of KOLs: Medical Advisory
+            </div>
             <div class="pa-obj-label">Objective</div>
-            <div class="pa-obj">의료 현장 Unmet Needs 확인 · 주요 오피니언 리더와의 관계 구축</div>
-            <div class="pa-body"><ul>
-              <li>뇌졸중 영상 분석 AI 솔루션 임상 유용성 평가를 위한 자문의 선정 및 자문 질의 구조화</li>
-              <li>자문회의 진행·결과 정리·연구 제안까지 전주기 관리 — KOL 교류를 임상 근거 강화 기회로 전환</li>
-              <li>Advisory Board Meeting 기획 및 PT 자료 제작 지원으로 레퍼런스 사이트 확보 기여</li>
-            </ul></div>
+            <div class="pa-obj">
+              의료 현장 Unmet Needs 확인 · 주요 오피니언 리더와의 관계 구축
+            </div>
+            <div class="pa-body">
+              <ul>
+                <li>
+                  뇌졸중 영상 분석 AI 솔루션 임상 유용성 평가를 위한 자문의 선정
+                  및 자문 질의 구조화
+                </li>
+                <li>
+                  자문회의 진행·결과 정리·연구 제안까지 전주기 관리 — KOL 교류를
+                  임상 근거 강화 기회로 전환
+                </li>
+                <li>
+                  Advisory Board Meeting 기획 및 PT 자료 제작 지원으로 레퍼런스
+                  사이트 확보 기여
+                </li>
+              </ul>
+            </div>
           </div>
 
           <div class="pa-card">
             <div class="pa-icon">🎤</div>
-            <div class="pa-title">Marketing Activity for Academic Events and Symposia</div>
+            <div class="pa-title">
+              Marketing Activity for Academic Events and Symposia
+            </div>
             <div class="pa-obj-label">Objective</div>
-            <div class="pa-obj">자사 제품 라인업의 과학적 가치와 임상적 유용성을 학술 채널로 전달</div>
-            <div class="pa-body"><ul>
-              <li>알츠하이머 치료제 관련 심포지엄 국내 개최 — 미국 KOL 연자 초청으로 브랜드 과학성 강화</li>
-              <li>RSNA 전시용 학술 머터리얼 영상 개발·제작으로 글로벌 브랜드 과학성 시각화</li>
-              <li>학회 발표 자료 관련 스피커 요청 신속 대응 및 외부 연자와의 학술 협력 네트워크 강화</li>
-            </ul></div>
+            <div class="pa-obj">
+              자사 제품 라인업의 과학적 가치와 임상적 유용성을 학술 채널로 전달
+            </div>
+            <div class="pa-body">
+              <ul>
+                <li>
+                  알츠하이머 치료제 관련 심포지엄 국내 개최 — 미국 KOL 연자
+                  초청으로 브랜드 과학성 강화
+                </li>
+                <li>
+                  RSNA 전시용 학술 머터리얼 영상 개발·제작으로 글로벌 브랜드
+                  과학성 시각화
+                </li>
+                <li>
+                  학회 발표 자료 관련 스피커 요청 신속 대응 및 외부 연자와의
+                  학술 협력 네트워크 강화
+                </li>
+              </ul>
+            </div>
           </div>
 
           <div class="pa-card">
             <div class="pa-icon">📡</div>
-            <div class="pa-title">Internal / External Communication Activity</div>
+            <div class="pa-title">
+              Internal / External Communication Activity
+            </div>
             <div class="pa-obj-label">Objective</div>
-            <div class="pa-obj">AI 기반 뇌 영상 분석 솔루션에 대한 조직 내외 이해도 제고 및 신뢰 형성</div>
-            <div class="pa-body"><ul>
-              <li>의료기기실증지원사업 전략 워크숍 참석 및 발표 — 외부 이해관계자와의 전략적 신뢰 접점 구축</li>
-              <li>의료진 대상 제품 설명회 기획·진행으로 현장 채택 장벽 완화 및 실사용 전환율 제고</li>
-              <li>비의료직군 대상 내부 임상 교육 세션 기획·실행으로 조직 커뮤니케이션 품질 향상</li>
-            </ul></div>
+            <div class="pa-obj">
+              AI 기반 뇌 영상 분석 솔루션에 대한 조직 내외 이해도 제고 및 신뢰
+              형성
+            </div>
+            <div class="pa-body">
+              <ul>
+                <li>
+                  의료기기실증지원사업 전략 워크숍 참석 및 발표 — 외부
+                  이해관계자와의 전략적 신뢰 접점 구축
+                </li>
+                <li>
+                  의료진 대상 제품 설명회 기획·진행으로 현장 채택 장벽 완화 및
+                  실사용 전환율 제고
+                </li>
+                <li>
+                  비의료직군 대상 내부 임상 교육 세션 기획·실행으로 조직
+                  커뮤니케이션 품질 향상
+                </li>
+              </ul>
+            </div>
           </div>
 
           <div class="pa-card">
             <div class="pa-icon">🧠</div>
-            <div class="pa-title">MOCA — Medical Orchestration Cooperative Agents: Clinical Evidence 데이터 아키텍처</div>
+            <div class="pa-title">
+              MOCA — Medical Orchestration Cooperative Agents: Clinical Evidence
+              데이터 아키텍처
+            </div>
             <div class="pa-obj-label">Objective</div>
-            <div class="pa-obj">환자 건강 데이터와 의료진 진료 현장을 근거 기반 데이터로 연결하는 지능형 의료 생태계 구축</div>
-            <div class="pa-body"><ul>
-              <li>가상 의료 환경 진료 시뮬레이션 — 5대 상급종합병원(신촌세브란스) 의료진 48명 참여, 5만 건 고품질 진료 데이터 구축</li>
-              <li>가상 환경 성능 평가 520 case — MOCA 77.5% vs GPT-4o 69.2%, 의사 대비 우수한 진단 정확도 입증</li>
-              <li>실제 의료 환경 8개 진료과 의원급 실환자 1,055건 대상 <strong>84.6% 진단 일치율</strong> 달성</li>
-              <li>AI Top-tier 학회 논문 다수 게재 완료·심사 중 / MOCA 탑재 솔루션 특허 출원 완료</li>
-            </ul></div>
+            <div class="pa-obj">
+              환자 건강 데이터와 의료진 진료 현장을 근거 기반 데이터로 연결하는
+              지능형 의료 생태계 구축
+            </div>
+            <div class="pa-body">
+              <ul>
+                <li>
+                  가상 의료 환경 진료 시뮬레이션 — 5대
+                  상급종합병원(신촌세브란스) 의료진 48명 참여, 5만 건 고품질
+                  진료 데이터 구축
+                </li>
+                <li>
+                  가상 환경 성능 평가 520 case — MOCA 77.5% vs GPT-4o 69.2%,
+                  의사 대비 우수한 진단 정확도 입증
+                </li>
+                <li>
+                  실제 의료 환경 8개 진료과 의원급 실환자 1,055건 대상
+                  <strong>84.6% 진단 일치율</strong> 달성
+                </li>
+                <li>
+                  AI Top-tier 학회 논문 다수 게재 완료·심사 중 / MOCA 탑재
+                  솔루션 특허 출원 완료
+                </li>
+              </ul>
+            </div>
           </div>
 
           <div class="pa-card">
             <div class="pa-icon">📚</div>
-            <div class="pa-title">Education and Knowledge Transfer Initiative</div>
+            <div class="pa-title">
+              Education and Knowledge Transfer Initiative
+            </div>
             <div class="pa-obj-label">Objective</div>
-            <div class="pa-obj">최신 의학 정보의 내부 전파 · 근거 기반 정보 제공 체계 구축</div>
-            <div class="pa-body"><ul>
-              <li>내부 직원 대상 제품 및 질환 관련 교육 자료 제작 및 Knowledge Transfer 진행</li>
-              <li>학술·판촉 자료 검토 및 근거 기반 정보 전달로 외부 대면 자료의 임상적 정확성 보장</li>
-              <li>최신 임상 데이터·가이드라인을 반영한 정기 업데이트 체계 수립</li>
-            </ul></div>
+            <div class="pa-obj">
+              최신 의학 정보의 내부 전파 · 근거 기반 정보 제공 체계 구축
+            </div>
+            <div class="pa-body">
+              <ul>
+                <li>
+                  내부 직원 대상 제품 및 질환 관련 교육 자료 제작 및 Knowledge
+                  Transfer 진행
+                </li>
+                <li>
+                  학술·판촉 자료 검토 및 근거 기반 정보 전달로 외부 대면 자료의
+                  임상적 정확성 보장
+                </li>
+                <li>
+                  최신 임상 데이터·가이드라인을 반영한 정기 업데이트 체계 수립
+                </li>
+              </ul>
+            </div>
           </div>
-
-        </div><!-- /pa-grid -->
+        </div>
+        <!-- /pa-grid -->
       </div>
     </div>
 
@@ -700,63 +2039,147 @@
     </footer>
 
     <script>
-      function showPanel(name,tab){
-        document.querySelectorAll(".panel").forEach(p=>p.classList.remove("active"));
-        document.querySelectorAll(".nav-btn").forEach(t=>t.classList.remove("active"));
-        document.getElementById("panel-"+name).classList.add("active");
+      function showPanel(name, tab) {
+        document
+          .querySelectorAll(".panel")
+          .forEach((p) => p.classList.remove("active"));
+        document
+          .querySelectorAll(".nav-btn")
+          .forEach((t) => t.classList.remove("active"));
+        document.getElementById("panel-" + name).classList.add("active");
         tab.classList.add("active");
-        window.scrollTo({top:0,behavior:"smooth"});
+        window.scrollTo({ top: 0, behavior: "smooth" });
       }
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
-      (function(){
-        const scene=new THREE.Scene();
-        const camera=new THREE.PerspectiveCamera(60,window.innerWidth/window.innerHeight,0.1,1000);
-        const renderer=new THREE.WebGLRenderer({canvas:document.getElementById("intro-canvas"),alpha:true,antialias:true});
-        renderer.setSize(window.innerWidth,window.innerHeight);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
-        camera.position.z=25;
-        function textToPoints(text){
-          const cvs=document.createElement("canvas");const ctx=cvs.getContext("2d");
-          cvs.width=3600;cvs.height=460;ctx.fillStyle="#000";ctx.textAlign="center";
-          ctx.textBaseline="middle";ctx.font="500 140px sans-serif";
-          ctx.fillText(text,cvs.width/2,cvs.height/2);
-          const data=ctx.getImageData(0,0,cvs.width,cvs.height).data;const pts=[];
-          for(let y=0;y<cvs.height;y+=3){for(let x=0;x<cvs.width;x+=3){
-            const i=(y*cvs.width+x)*4;if(data[i+3]>100){pts.push({x:(x-cvs.width/2)/110,y:(cvs.height/2-y)/110,z:(Math.random()-0.5)*0.15});}}}
+      (function () {
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(
+          60,
+          window.innerWidth / window.innerHeight,
+          0.1,
+          1000,
+        );
+        const renderer = new THREE.WebGLRenderer({
+          canvas: document.getElementById("intro-canvas"),
+          alpha: true,
+          antialias: true,
+        });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        camera.position.z = 25;
+        function textToPoints(text) {
+          const cvs = document.createElement("canvas");
+          const ctx = cvs.getContext("2d");
+          cvs.width = 3600;
+          cvs.height = 460;
+          ctx.fillStyle = "#000";
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          ctx.font = "500 140px sans-serif";
+          ctx.fillText(text, cvs.width / 2, cvs.height / 2);
+          const data = ctx.getImageData(0, 0, cvs.width, cvs.height).data;
+          const pts = [];
+          for (let y = 0; y < cvs.height; y += 3) {
+            for (let x = 0; x < cvs.width; x += 3) {
+              const i = (y * cvs.width + x) * 4;
+              if (data[i + 3] > 100) {
+                pts.push({
+                  x: (x - cvs.width / 2) / 110,
+                  y: (cvs.height / 2 - y) / 110,
+                  z: (Math.random() - 0.5) * 0.15,
+                });
+              }
+            }
+          }
           return pts;
         }
-        const pts=textToPoints("SARAH, LEE");const count=pts.length;
-        const geo=new THREE.BufferGeometry();const pos=new Float32Array(count*3);const velocities=[];
-        for(let i=0;i<count;i++){
-          pos[i*3]=(Math.random()-0.5)*40;pos[i*3+1]=(Math.random()-0.5)*40;pos[i*3+2]=(Math.random()-0.5)*30;
-          velocities.push({x:(Math.random()-0.5)*0.18,y:(Math.random()-0.5)*0.18,z:(Math.random()-0.5)*0.35});
+        const pts = textToPoints("SARAH, LEE");
+        const count = pts.length;
+        const geo = new THREE.BufferGeometry();
+        const pos = new Float32Array(count * 3);
+        const velocities = [];
+        for (let i = 0; i < count; i++) {
+          pos[i * 3] = (Math.random() - 0.5) * 40;
+          pos[i * 3 + 1] = (Math.random() - 0.5) * 40;
+          pos[i * 3 + 2] = (Math.random() - 0.5) * 30;
+          velocities.push({
+            x: (Math.random() - 0.5) * 0.18,
+            y: (Math.random() - 0.5) * 0.18,
+            z: (Math.random() - 0.5) * 0.35,
+          });
         }
-        geo.setAttribute("position",new THREE.BufferAttribute(pos,3));
-        const mat=new THREE.PointsMaterial({color:0x1a56db,size:0.1,transparent:true,opacity:0.9});
-        const particles=new THREE.Points(geo,mat);scene.add(particles);
-        let phase=0;let animId;
-        function animate(){
-          animId=requestAnimationFrame(animate);const arr=geo.attributes.position.array;
-          if(phase===0){for(let i=0;i<count;i++){arr[i*3]+=(pts[i].x-arr[i*3])*0.1;arr[i*3+1]+=(pts[i].y-arr[i*3+1])*0.1;arr[i*3+2]+=(pts[i].z-arr[i*3+2])*0.1;}}
-          if(phase===2){for(let i=0;i<count;i++){velocities[i].x*=1.015;velocities[i].y*=1.015;velocities[i].z*=1.02;arr[i*3]+=velocities[i].x;arr[i*3+1]+=velocities[i].y;arr[i*3+2]+=velocities[i].z;}mat.opacity*=0.987;}
-          particles.rotation.y+=0.0006;geo.attributes.position.needsUpdate=true;renderer.render(scene,camera);
+        geo.setAttribute("position", new THREE.BufferAttribute(pos, 3));
+        const mat = new THREE.PointsMaterial({
+          color: 0x1a56db,
+          size: 0.1,
+          transparent: true,
+          opacity: 0.9,
+        });
+        const particles = new THREE.Points(geo, mat);
+        scene.add(particles);
+        let phase = 0;
+        let animId;
+        function animate() {
+          animId = requestAnimationFrame(animate);
+          const arr = geo.attributes.position.array;
+          if (phase === 0) {
+            for (let i = 0; i < count; i++) {
+              arr[i * 3] += (pts[i].x - arr[i * 3]) * 0.1;
+              arr[i * 3 + 1] += (pts[i].y - arr[i * 3 + 1]) * 0.1;
+              arr[i * 3 + 2] += (pts[i].z - arr[i * 3 + 2]) * 0.1;
+            }
+          }
+          if (phase === 2) {
+            for (let i = 0; i < count; i++) {
+              velocities[i].x *= 1.015;
+              velocities[i].y *= 1.015;
+              velocities[i].z *= 1.02;
+              arr[i * 3] += velocities[i].x;
+              arr[i * 3 + 1] += velocities[i].y;
+              arr[i * 3 + 2] += velocities[i].z;
+            }
+            mat.opacity *= 0.987;
+          }
+          particles.rotation.y += 0.0006;
+          geo.attributes.position.needsUpdate = true;
+          renderer.render(scene, camera);
         }
         animate();
         document.body.classList.add("intro-active");
-        setTimeout(()=>{document.getElementById("intro-subtitle").style.opacity=1;},1800);
-        setTimeout(()=>{phase=1;},2400);
-        setTimeout(()=>{document.getElementById("intro-title").style.opacity=1;},2800);
-        setTimeout(()=>{phase=2;},3400);
-        setTimeout(()=>{endIntro();},5600);
-        function endIntro(){
-          const overlay=document.getElementById("intro-overlay");
-          overlay.classList.add("fade-out");document.body.classList.remove("intro-active");
-          cancelAnimationFrame(animId);setTimeout(()=>{overlay.style.display="none";},900);
+        setTimeout(() => {
+          document.getElementById("intro-subtitle").style.opacity = 1;
+        }, 1800);
+        setTimeout(() => {
+          phase = 1;
+        }, 2400);
+        setTimeout(() => {
+          document.getElementById("intro-title").style.opacity = 1;
+        }, 2800);
+        setTimeout(() => {
+          phase = 2;
+        }, 3400);
+        setTimeout(() => {
+          endIntro();
+        }, 5600);
+        function endIntro() {
+          const overlay = document.getElementById("intro-overlay");
+          overlay.classList.add("fade-out");
+          document.body.classList.remove("intro-active");
+          cancelAnimationFrame(animId);
+          setTimeout(() => {
+            overlay.style.display = "none";
+          }, 900);
         }
-        window.skipIntro=function(){endIntro();};
-        window.addEventListener("resize",()=>{camera.aspect=window.innerWidth/window.innerHeight;camera.updateProjectionMatrix();renderer.setSize(window.innerWidth,window.innerHeight);});
+        window.skipIntro = function () {
+          endIntro();
+        };
+        window.addEventListener("resize", () => {
+          camera.aspect = window.innerWidth / window.innerHeight;
+          camera.updateProjectionMatrix();
+          renderer.setSize(window.innerWidth, window.innerHeight);
+        });
       })();
     </script>
   </body>
